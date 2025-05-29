@@ -2,11 +2,11 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import { RawArticle, AnalyzedArticle, GeoJsonOutput, GeoJsonFeature, View, RssSource, GeminiAnalysisResult } from './types';
 import { INITIAL_RSS_SOURCES, MAX_ARTICLES_TO_ANALYZE, CORS_PROXY_URL, OPENAI_MODEL_TEXT } from './constants';
-import { fetchAllRssFeeds } from './services/rssService';
-import { analyzeArticleContent } from './services/geminiService'; // This now points to the OpenAI-backed service
-import ArticleTable from './components/ArticleTable';
-import GeoJsonDisplay from './components/GeoJsonDisplay';
-import LoadingSpinner from './components/LoadingSpinner';
+import { fetchAllRssFeeds } from './rssService';
+import { analyzeArticleContent } from './geminiService'; // This now points to the OpenAI-backed service
+import ArticleTable from './ArticleTable';
+import GeoJsonDisplay from './GeoJsonDisplay';
+import LoadingSpinner from './LoadingSpinner';
 
 // Icons
 const RssIcon: React.FC<{ className?: string }> = ({ className }) => (

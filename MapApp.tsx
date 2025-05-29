@@ -1,10 +1,10 @@
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import L from 'leaflet';
-import { FilterPanel } from './components/FilterPanel';
-import { SearchPanel } from './components/SearchPanel';
-import { ArticleSidebar } from './components/ArticleSidebar';
-import { MapDisplay } from './components/MapDisplay';
+import { FilterPanel } from './FilterPanel';
+import { SearchPanel } from './SearchPanel';
+import { ArticleSidebar } from './ArticleSidebar';
+import { MapDisplay } from './MapDisplay';
 import { CATEGORY_ORDER, START_DATE, getCanonicalCategory, getCategoryDetails, DEFAULT_PIN_COLOR } from './constants';
 import type { GeoJSONData, GeoJSONFeature, MarkerArticle, FilterState } from './types';
 
