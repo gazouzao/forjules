@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { START_DATE } from '../constants'; 
+import { START_DATE } from './constants'; 
 
 interface SearchPanelProps {
   onSearch: (searchTerm: string, dateValue: number) => void;
