@@ -2,8 +2,8 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import L from 'leaflet';
 import 'leaflet.markercluster'; 
-import type { MarkerArticle, ExtendedMarker } from '../types';
-import { createUberStylePinHTML, DEFAULT_PIN_COLOR } from '../constants';
+import type { MarkerArticle, ExtendedMarker } from './types';
+import { createUberStylePinHTML, DEFAULT_PIN_COLOR } from './constants';
 
 // Augment Leaflet's Map interface to include unspiderfy
 declare module 'leaflet' {

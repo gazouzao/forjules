@@ -69,3 +69,22 @@ export const getCategoryDetails = (category: string): CategoryDetail => {
 };
 
 // --- End of Definitions for MapApp ---
+
+// --- Function for MapDisplay ---
+
+/**
+ * Creates HTML for an "Uber style" map pin.
+ * @param color The background color for the pin head.
+ * @returns An HTML string representing the pin.
+ */
+export const createUberStylePinHTML = (color: string): string => {
+  return `
+    <div class="uber-pin-shape">
+      <div class="uber-pin-head" style="background-color: ${color};"></div>
+      <div class="uber-pin-stem"></div>
+      <div class="uber-pin-base"></div>
+    </div>
+  `;
+};
+
+// --- End of Function for MapDisplay ---
