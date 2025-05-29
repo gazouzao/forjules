@@ -1,7 +1,7 @@
 
 import React from 'react';
-import type { MarkerArticle } from '../types';
-import { getCategoryDetails } from '../constants';
+import type { MarkerArticle } from './types';
+import { getCategoryDetails } from './constants';
 
 interface ArticleSidebarProps {
   articles: MarkerArticle[];

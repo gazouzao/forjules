@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { RawArticle, AnalyzedArticle } from '../types';
+import { RawArticle, AnalyzedArticle } from './types';
 
 interface ArticleTableProps {
   articles: (RawArticle | AnalyzedArticle)[];

@@ -1,6 +1,6 @@
 
 import React, { useRef, useEffect, useState }  from 'react';
-import { getCategoryDetails, DEFAULT_PIN_COLOR } from '../constants';
+import { getCategoryDetails, DEFAULT_PIN_COLOR } from './constants';
 
 interface FilterPanelProps {
   categories: string[]; // Array of canonical category keys

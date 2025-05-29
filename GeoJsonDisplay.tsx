@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { GeoJsonOutput } from '../types';
+import { GeoJsonOutput } from './types';
 
 interface GeoJsonDisplayProps {
   geoJsonData: GeoJsonOutput | null;
