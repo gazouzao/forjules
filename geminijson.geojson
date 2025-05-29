@@ -1,0 +1,936 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3522,
+          48.8566
+        ]
+      },
+      "properties": {
+        "titre": "Olivier Falorni, le discret et déterminé « chef d’orchestre » des textes de loi sur la fin de vie",
+        "categorie": "flash",
+        "importance": 0.55,
+        "lien": "https://www.lemonde.fr/politique/article/2025/05/27/olivier-falorni-le-discret-et-determine-chef-d-orchestre-des-textes-de-loi-sur-la-fin-de-vie_6608870_823448.html",
+        "localisation": "Paris, France",
+        "date": "27/05/2025",
+        "description": "L’ancien socialiste, qui siège aujourd’hui au centre, porte le combat pour l’aide à mourir depuis de nombreuses années. Il a contribué à ce que les débats à l’Assemblée nationale se déroulent de maniè..."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.4,
+          31.5
+        ]
+      },
+      "properties": {
+        "titre": "En direct, guerre à Gaza : l’ONU dénonce les images « déchirantes » de Palestiniens se ruant vers un centre de distribution d’aide dans le sud de l’enclave",
+        "categorie": "international",
+        "importance": 0.9,
+        "lien": "https://www.lemonde.fr/international/live/2025/05/27/en-direct-guerre-a-gaza-l-onu-denonce-les-images-dechirantes-de-palestiniens-se-ruant-vers-un-centre-de-distribution-d-aide-dans-le-sud-de-l-enclave_6608186_3210.html",
+        "localisation": "Gaza",
+        "date": "27/05/2025",
+        "description": "La Fondation humanitaire de Gaza, créée de toutes pièces et soutenue par les Etats-Unis, qui gère ces centres, a écrit que l’affluence a été telle cet après-midi que son équipe « s’est repliée pour pe..."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3522,
+          48.8566
+        ]
+      },
+      "properties": {
+        "titre": "« On s’est pris une baffe » : au lendemain du rejet stratégique de la proposition de loi Duplomb, les opposants veulent se faire entendre",
+        "categorie": "environnement",
+        "importance": 0.5,
+        "lien": "https://www.lemonde.fr/planete/article/2025/05/27/on-s-est-pris-une-baffe-au-lendemain-du-rejet-strategique-de-la-proposition-de-loi-duplomb-les-opposants-veulent-se-faire-entendre_6608873_3244.html",
+        "localisation": "Paris, France",
+        "date": "27/05/2025",
+        "description": "Un peu plus de 300 militants associatifs et élus se sont rassemblés sur un parterre de l’esplanade des Invalides, mardi, pour défendre un autre modèle agricole que celui porté par la « PPL Duplomb »."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3522,
+          48.8566
+        ]
+      },
+      "properties": {
+        "titre": "Anne-Sophie Lapix, redoutée pour ses interviews politiques, est évincée du « 20 heures » de France 2 dans un contexte de baisse d’audience",
+        "categorie": "economie",
+        "importance": 0.5,
+        "lien": "https://www.lemonde.fr/economie/article/2025/05/27/anne-sophie-lapix-redoutee-pour-ses-interviews-politiques-est-evincee-du-20-heures-de-france-2-dans-un-contexte-de-baisse-d-audience_6608865_3234.html",
+        "localisation": "Paris, France",
+        "date": "27/05/2025",
+        "description": "La direction de France Télévisions a souhaité que la journaliste cède sa place à la tête du rendez-vous quotidien d’information. Anne-Sophie Lapix, dont le successeur n’est pas encore connu, devrait r..."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.52,
+          50.45
+        ]
+      },
+      "properties": {
+        "titre": "En direct, guerre en Ukraine : Donald Trump estime que Vladimir Poutine « joue avec le feu » et le met en garde",
+        "categorie": "international",
+        "importance": 0.9,
+        "lien": "https://www.lemonde.fr/international/live/2025/05/27/en-direct-guerre-en-ukraine-donald-trump-estime-que-vladimir-poutine-joue-avec-le-feu-et-le-met-en-garde_6608275_3210.html",
+        "localisation": "Ukraine",
+        "date": "27/05/2025",
+        "description": "Le président américain avait déjà laisser éclater sa colère dimanche, déclarant que le dirigeant russe était « devenu complètement fou », après de nouvelles attaques massives sur l’Ukraine."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.3155,
+          45.4408
+        ]
+      },
+      "properties": {
+        "titre": "A la Biennale d’architecture de Venise, la guerre s’impose de Gaza à Marioupol",
+        "categorie": "culture",
+        "importance": 0.65,
+        "lien": "https://www.lemonde.fr/culture/article/2025/05/27/a-la-biennale-d-architecture-de-venise-la-guerre-s-impose-de-gaza-a-marioupol_6608868_3246.html",
+        "localisation": "Venise, Italie",
+        "date": "27/05/2025",
+        "description": "Les pavillons de pays en prise directe avec des conflits mettent en avant les ressources dont disposent les bâtisseurs pour un avenir redevenu respirable."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3522,
+          48.8566
+        ]
+      },
+      "properties": {
+        "titre": "Le tennis féminin français poursuit sa déliquescence à Roland-Garros",
+        "categorie": "flash",
+        "importance": 0.45,
+        "lien": "https://www.lemonde.fr/sport/article/2025/05/27/le-tennis-feminin-francais-poursuit-sa-deliquescence-a-roland-garros_6608878_3242.html",
+        "localisation": "Paris, France",
+        "date": "27/05/2025",
+        "description": "Seules trois Tricolores sont parvenues à rallier le deuxième tour du tournoi du Grand Chelem français, égalant les pires millésimes. Mardi, Elsa Jacquemot et Lois Boisson ont rejoint Léolia Jeanjean, ..."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.9916,
+          53.4084
+        ]
+      },
+      "properties": {
+        "titre": "L’automobiliste qui a foncé dans la foule à Liverpool en garde à vue, onze personnes toujours hospitalisées",
+        "categorie": "international",
+        "importance": 0.75,
+        "lien": "https://www.lemonde.fr/international/article/2025/05/27/l-automobiliste-qui-a-fonce-dans-la-foule-a-liverpool-en-garde-a-vue-onze-personnes-toujours-hospitalisees_6608853_3210.html",
+        "localisation": "Liverpool, Royaume-Uni",
+        "date": "27/05/2025",
+        "description": "L’homme de 53 ans qui a percuté la parade de la victoire du Liverpool FC, lundi soir, a été placé en garde à vue pour « tentative de meurtre » et « conduite sous l’emprise de drogues », a annoncé la p..."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          45.23,
+          -12.78
+        ]
+      },
+      "properties": {
+        "titre": "Mayotte : le Sénat vote largement la loi de programmation pour la « refondation » de l’archipel, après le passage du cyclone Chido",
+        "categorie": "economie",
+        "importance": 0.55,
+        "lien": "https://www.lemonde.fr/politique/article/2025/05/27/mayotte-le-senat-vote-largement-la-loi-de-programmation-pour-la-refondation-de-l-archipel-apres-le-passage-du-cyclone-chido_6608876_823448.html",
+        "localisation": "Mayotte, France",
+        "date": "27/05/2025",
+        "description": "Le texte porté par le gouvernement décline près de 4 milliards d’euros d’engagements financiers de l’Etat sur plusieurs années, et durcit notamment le droit de séjour sur l’archipel. Il doit désormais..."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3522,
+          48.8566
+        ]
+      },
+      "properties": {
+        "titre": "Nouvelle-Calédonie : Emmanuel Macron va inviter les « parties prenantes » à Paris pour relancer les négociations",
+        "categorie": "international",
+        "importance": 0.75,
+        "lien": "https://www.lemonde.fr/politique/article/2025/05/27/nouvelle-caledonie-emmanuel-macron-va-inviter-les-parties-prenantes-a-paris-pour-relancer-les-negociations_6608880_823448.html",
+        "localisation": "Paris, France",
+        "date": "27/05/2025",
+        "description": "Après l’échec des discussions menées par le ministre des outre-mer Manuel Valls, l’exécutif cherche à réunir indépendantistes et non-indépendantistes autour d’un nouvel accord."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3522,
+          48.8566
+        ]
+      },
+      "properties": {
+        "titre": "Pierre Gendronneau, directeur délégué du Festival d’Avignon, visé par une enquête après des signalements de violences sexuelles sur un précédent poste",
+        "categorie": "culture",
+        "importance": 0.6,
+        "lien": "https://www.lemonde.fr/societe/article/2025/05/27/pierre-gendronneau-directeur-delegue-du-festival-d-avignon-vise-par-une-enquete-apres-des-signalements-de-violences-sexuelles-sur-un-precedent-poste_6608874_3224.html",
+        "localisation": "Paris, France",
+        "date": "27/05/2025",
+        "description": "Le parquet de Paris a confirmé avoir reçu un signalement du ministère de la culture visant M. Gendronneau. Ce signalement vise des faits dénoncés par une salariée du Festival d’Automne, où il officiai..."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.01,
+          43.55
+        ]
+      },
+      "properties": {
+        "titre": "Après les sabotages électriques récents, François Bayrou annonce étendre la surveillance à « tous les lieux critiques »",
+        "categorie": "flash",
+        "importance": 0.6,
+        "lien": "https://www.lemonde.fr/societe/article/2025/05/27/apres-les-sabotages-electriques-recents-francois-bayrou-annonce-etendre-la-surveillance-a-tous-les-lieux-critiques_6608860_3224.html",
+        "localisation": "Cannes, France",
+        "date": "27/05/2025",
+        "description": "Un travail de « renseignement » et de « sécurisation » va également être mené après les incendies et « actes malveillants » qui ont privé d’électricité jusqu’à 160 000 foyers dans la région de Cannes,..."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.3517,
+          50.8503
+        ]
+      },
+      "properties": {
+        "titre": "La Commission européenne ouvre une enquête contre quatre sites pornographiques, dont Pornhub",
+        "categorie": "international",
+        "importance": 0.78,
+        "lien": "https://www.lemonde.fr/economie/article/2025/05/27/la-commission-europeenne-ouvre-une-enquete-contre-quatre-sites-pornographiques-dont-pornhub_6608864_3234.html",
+        "localisation": "Brussels, Belgium",
+        "date": "27/05/2025",
+        "description": "Pornhub, Stripchat, XNXX et XVideos sont ciblés en raison de l’absence d’outils permettant de vérifier l’âge des utilisateurs. Par ailleurs, plusieurs pays, dont la France, militent pour l’instauratio..."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3522,
+          48.8566
+        ]
+      },
+      "properties": {
+        "titre": "Équipe de France. « C’est un rêve, j’ai hâte », Zinédine Zidane souhaite être à la tête des Bleus",
+        "categorie": "flash",
+        "importance": 0.7,
+        "lien": "https://www.ouest-france.fr/sport/football/zinedine-zidane/equipe-de-france-cest-un-reve-jai-hate-zinedine-zidane-souhaite-etre-a-la-tete-des-bleus-36bd22f6-3b20-11f0-b71a-e87c40f434be?utm_source=fluxpublicfrance&utm_medium=fluxrss&utm_campaign=banquedecontenu",
+        "localisation": "France",
+        "date": "27/05/2025",
+        "description": "Favori pour prendre la suite de Didier Deschamps à la tête de l’équipe de France, Zinédine Zidane s’est exprimé ce lundi lors d’un événement de son équipementier Adidas. L’ancien meneur de jeu des Ble..."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.888334,
+          46.603354
+        ]
+      },
+      "properties": {
+        "titre": "Chômage : le nombre de demandeurs d’emploi sans activité est quasi stable en avril, à 3,22 millions",
+        "categorie": "economie",
+        "importance": 0.5,
+        "lien": "https://www.ouest-france.fr/economie/emploi/chomage/chomage-le-nombre-de-demandeurs-demploi-sans-activite-est-quasi-stable-en-avril-a-3-22-millions-9aeb4e0c-3b1f-11f0-b71a-e87c40f434be?utm_source=fluxpublicfrance&utm_medium=fluxrss&utm_campaign=banquedecontenu",
+        "localisation": "France",
+        "date": "27/05/2025",
+        "description": "Le nombre de demandeurs d’emploi inscrits à France Travail en catégorie A (sans activité) est resté quasi stable en avril 2025 par rapport au mois précédent, selon les données publiées par le ministèr..."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3522,
+          48.8566
+        ]
+      },
+      "properties": {
+        "titre": "INFOGRAPHIE. Loi sur la fin de vie : comment a voté votre député ?",
+        "categorie": "flash",
+        "importance": 0.65,
+        "lien": "https://www.ouest-france.fr/societe/fin-de-vie/infographie-loi-sur-la-fin-de-vie-comment-a-vote-votre-depute-c29114da-3b12-11f0-b71a-e87c40f434be?utm_source=fluxpublicfrance&utm_medium=fluxrss&utm_campaign=banquedecontenu",
+        "localisation": "Paris, France",
+        "date": "27/05/2025",
+        "description": "L’Assemblée nationale se prononçait ce mardi 27 mai sur deux propositions de loi sur la fin de vie. La première concernait les soins palliatifs et la seconde la création d’un droit à l’aide à mourir. ..."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.888334,
+          46.603354
+        ]
+      },
+      "properties": {
+        "titre": "Pourquoi les pilotes d’hélicoptères du Samu menacent-ils de faire grève à partir de jeudi ?",
+        "categorie": "economie",
+        "importance": 0.5,
+        "lien": "https://www.ouest-france.fr/sante/pourquoi-les-pilotes-dhelicopteres-du-samu-menacent-ils-de-faire-greve-a-partir-de-jeudi-90de4592-3b04-11f0-b71a-e87c40f434be?utm_source=fluxpublicfrance&utm_medium=fluxrss&utm_campaign=banquedecontenu",
+        "localisation": "France",
+        "date": "27/05/2025",
+        "description": "Les pilotes d’hélicoptère de Samu menacent de se mettre en grève illimitée à partir du jeudi 29 mai. Ils protestent notamment contre une rémunération jugée trop faible par rapport à leurs collègues eu..."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3522,
+          48.8566
+        ]
+      },
+      "properties": {
+        "titre": "Fin de vie : les députés se prononcent pour la création d’une «aide à mourir»",
+        "categorie": "flash",
+        "importance": 0.75,
+        "lien": "https://www.liberation.fr/politique/fin-de-vie-les-deputes-se-prononcent-pour-la-creation-dune-aide-a-mourir-20250527_4RCWK5UH7FGDXHAN3FL5VN3SYQ/",
+        "localisation": "Paris, France",
+        "date": "27/05/2025",
+        "description": "Les élus de la Chambre basse votaient en première lecture ce mardi 27 mai sur les deux volets législatifs d’une des réformes majeures du second quinquennat d’Emmanuel Macron. La proposition de loi sur..."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.888334,
+          46.603354
+        ]
+      },
+      "properties": {
+        "titre": "Loi sur la fin de vie : comment a voté votre député ?",
+        "categorie": "flash",
+        "importance": 0.65,
+        "lien": "https://www.liberation.fr/societe/sante/loi-sur-la-fin-de-vie-comment-a-vote-votre-depute-20250527_IQSRC4ZQQRBCRACEHPOHKP6IUE/",
+        "localisation": "France",
+        "date": "27/05/2025",
+        "description": "Les députés ont adopté, ce mardi 27 mai, la création d’un droit à mourir. «Libération» a analysé le vote des différents groupes."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3522,
+          48.8566
+        ]
+      },
+      "properties": {
+        "titre": "A l’Assemblée, Bayrou en première ligne pour justifier l’absence de débat agricole",
+        "categorie": "flash",
+        "importance": 0.5,
+        "lien": "https://www.liberation.fr/politique/a-lassemblee-bayrou-en-premiere-ligne-pour-justifier-labsence-de-debat-agricole-20250527_CUTK3YQPFBEERGYWEFXD5QB4ME/",
+        "localisation": "Paris, France",
+        "date": "27/05/2025",
+        "description": "Devant les députés, le Premier ministre a soutenu l’adoption, la veille, d’une motion de rejet pour empêcher l’examen de la proposition de loi Duplomb. Les oppositions dénoncent notamment une «bascule..."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.2068,
+          48.8938
+        ]
+      },
+      "properties": {
+        "titre": "«Il n’y a plus de procès Vivès» : le tribunal de Nanterre se déclare incompétent",
+        "categorie": "flash",
+        "importance": 0.45,
+        "lien": "https://www.liberation.fr/societe/police-justice/proces-de-bastien-vives-pour-diffusion-dimages-pedopornographiques-le-tribunal-de-nanterre-se-declare-incompetent-20250527_V75RPD5SW5CLTGZ76YQJRSWNGQ/",
+        "localisation": "Nanterre, France",
+        "date": "27/05/2025",
+        "description": "La présidente de l’audience a expliqué ce mardi 27 mai qu’aucune pièce du dossier ne permettait de dire que les œuvres du dessinateur avaient été réalisées dans les Hauts-de-Seine. Au parquet désormai..."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.4442,
+          43.6045
+        ]
+      },
+      "properties": {
+        "titre": "En Occitanie, le préfet en croisade contre les congés menstruels",
+        "categorie": "flash",
+        "importance": 0.45,
+        "lien": "https://www.liberation.fr/societe/droits-des-femmes/en-occitanie-le-prefet-en-croisade-contre-les-conges-menstruels-20250527_K4X26IXACZCYTLWWMTKG5HBQXI/",
+        "localisation": "Toulouse, France",
+        "date": "27/05/2025",
+        "description": "Une administration de Haute-Garonne a abrogé, le 21 mai, la possibilité de cesser le travail en cas de règles douloureuses. Une attaque contre les droits des travailleuses émanant directement du préfe..."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.4667,
+          31.5
+        ]
+      },
+      "properties": {
+        "titre": "A Gaza, bousculades et chaos pour la première distribution d’aide alimentaire gérée par Israël",
+        "categorie": "international",
+        "importance": 0.9,
+        "lien": "https://www.liberation.fr/international/moyen-orient/a-gaza-bousculades-et-chaos-pour-la-premiere-distribution-daide-alimentaire-geree-par-israel-20250527_4O6T6DER6VD7LJXKSVAUFXLMGY/",
+        "localisation": "Gaza",
+        "date": "27/05/2025",
+        "description": "Des milliers de Gazaouis ont tenté d’accéder aux centres de distribution, qui a commencé ce mardi 27 mai, au sud de l’enclave."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.0814,
+          8.6753
+        ]
+      },
+      "properties": {
+        "titre": "Repentis de Boko Haram au Nigeria: «On nous a dit que c’est comme ça qu’il fallait mourir, qu’on irait au Paradis» ",
+        "categorie": "international",
+        "importance": 0.8,
+        "lien": "https://www.liberation.fr/international/afrique/repentis-de-boko-haram-au-nigeria-on-nous-a-dit-que-cest-comme-ca-quil-fallait-mourir-quon-irait-au-paradis-20250527_6VU3ZI4V7RCINDY2IZ6JRYCZEI/",
+        "localisation": "Nigeria",
+        "date": "27/05/2025",
+        "description": "Dans le nord-est du Nigeria, plusieurs centaines de combattants ont quitté le groupe jihadiste ces dernières années pour se rendre aux autorités. Deux d’entre eux témoignent."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3522,
+          48.8566
+        ]
+      },
+      "properties": {
+        "titre": "L’embarrassante affaire autour d’un film de Julie Gayet, d’un dîner à l’Elysée et d’un colossal contrat de Rafale avec l’Inde",
+        "categorie": "international",
+        "importance": 0.8,
+        "lien": "https://www.liberation.fr/societe/police-justice/lembarrassante-affaire-autour-dun-film-de-julie-gayet-dun-diner-a-lelysee-et-dun-colossal-contrat-de-rafale-avec-linde-20250527_T2ZGARFPKFH47KCG3MJNHQ34YI/",
+        "localisation": "Paris, France",
+        "date": "27/05/2025",
+        "description": "Un long-métrage produit par la compagne de François Hollande a été financé en 2016 par une société impliquée dans le marché militaire que négociait le chef de l’Etat avec New Delhi. Des éléments troub..."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.4,
+          31.5
+        ]
+      },
+      "properties": {
+        "titre": "Ecole bombardée à Gaza : que sait-on de la petite fille aperçue dans les flammes ?",
+        "categorie": "international",
+        "importance": 0.9,
+        "lien": "https://www.liberation.fr/checknews/ecole-bombardee-a-gaza-que-sait-on-de-la-petite-fille-apercue-dans-les-flammes-20250527_FY3PLJJ3KFH7DDXZJTFYQAYHFI/",
+        "localisation": "Gaza",
+        "date": "27/05/2025",
+        "description": "La vidéo d’une fillette sauvée des décombres d’une école frappée par l’armée israélienne a été largement partagée sur les réseaux sociaux. Miraculée, elle a perdu sa mère et cinq de ses frères et sœur..."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.4667,
+          31.5
+        ]
+      },
+      "properties": {
+        "titre": "Gaza : le monde du cinéma doit passer à l’action contre le pire de notre histoire contemporaine",
+        "categorie": "international",
+        "importance": 0.75,
+        "lien": "https://www.liberation.fr/idees-et-debats/tribunes/gaza-le-monde-du-cinema-doit-passer-a-laction-contre-le-pire-de-notre-histoire-contemporaine-20250527_IRMRIAJV5JGY5O5DOZCGSRGEWA/",
+        "localisation": "Gaza",
+        "date": "27/05/2025",
+        "description": "Au début du Festival de Cannes, ils étaient 900 à signer une tribune dans «Libération» pour dénoncer l’horreur de Gaza. Le collectif Artistes pour la Palestine à l’initiative de ce texte les appelle à..."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3522,
+          48.8566
+        ]
+      },
+      "properties": {
+        "titre": "Après une déclaration antisémite faussement inspirée de De Gaulle, une élue écologiste de Paris se «met en retrait»",
+        "categorie": "flash",
+        "importance": 0.65,
+        "lien": "https://www.liberation.fr/politique/apres-une-declaration-antisemite-faussement-inspiree-de-de-gaulle-une-elue-ecologiste-de-paris-se-met-en-retrait-20250527_TJE7BQ5WYZEMNMCFHLD55NQ3KM/",
+        "localisation": "Paris, France",
+        "date": "27/05/2025",
+        "description": "Lors d’un débat sur Gaza en conseil municipal du XXe arrondissement lundi soir, Lila Djellali a déformé une citation du Général, déjà critiquée à l’époque. Le maire de l’arrondissement, Eric Pliez, a ..."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.4667,
+          43.5333
+        ]
+      },
+      "properties": {
+        "titre": "«Madame B. s’est servie de la Sécurité sociale comme d’une vache à lait» : dans le Var, une chauffeuse de taxi poursuivie pour escroquerie et blanchiment",
+        "categorie": "flash",
+        "importance": 0.3,
+        "lien": "https://www.liberation.fr/societe/police-justice/madame-b-sest-servie-de-la-securite-sociale-comme-dune-vache-a-lait-dans-le-var-une-chauffeuse-de-taxi-poursuivie-pour-escroquerie-et-blanchiment-20250527_6SFODV4VSNGB3CF44WCHTDCB3A/",
+        "localisation": "Draguignan, Var, France",
+        "date": "27/05/2025",
+        "description": "Le tribunal correctionnel de Draguignan se penchait ce mardi 27 mai sur le cas d’une cheffe d’entreprise accusée d’avoir produit de faux bons de transport de patients auprès de six organismes de prote..."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.4,
+          31.5
+        ]
+      },
+      "properties": {
+        "titre": "Guerre dans la bande de Gaza : «Aujourd’hui, le seul rêve des enfants est de pouvoir manger du pain»",
+        "categorie": "international",
+        "importance": 0.95,
+        "lien": "https://www.liberation.fr/international/moyen-orient/guerre-dans-la-bande-de-gaza-aujourdhui-le-seul-reve-des-enfants-est-de-pouvoir-manger-du-pain-20250526_HNUHK4N2NNE4FMY24CD7HZ4HIA/",
+        "localisation": "Bande de Gaza",
+        "date": "26/05/2025",
+        "description": "La directrice humanitaire de l’ONG Save the Children dans la bande de Gaza, Rachel Cummings, décrit à «Libération» les «conditions absolument désespérées» dans lesquelles vivent les enfants de l’encla..."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3522,
+          48.8566
+        ]
+      },
+      "properties": {
+        "titre": "Mort de Jean Tiberi : Paris perd un électeur dans le Ve",
+        "categorie": "flash",
+        "importance": 0.45,
+        "lien": "https://www.liberation.fr/politique/mort-de-jean-tiberi-paris-perd-un-electeur-dans-le-ve-20250527_REAVLK3TD5D2ZPLQWIR7CZRTSA/",
+        "localisation": "Paris, France",
+        "date": "27/05/2025",
+        "description": "Maire de Paris entre 1995 et 2001, ce fidèle de Jacques Chirac était devenu le symbole des magouilles de la droite parisienne. Devenu paria dans son propre camp, indissociable de son épouse Xavière, i..."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0369,
+          38.9072
+        ]
+      },
+      "properties": {
+        "titre": "Elon Musk se décide (enfin) à quitter l’administration Trump et retourne aux affaires",
+        "categorie": "international",
+        "importance": 0.8,
+        "lien": "https://www.liberation.fr/international/amerique/elon-musk-se-decide-enfin-a-quitter-ladministration-trump-et-retourne-aux-affaires-20250527_JXQLQJ2ZO5FP3DTVNLKUBMXPF4/",
+        "localisation": "Washington D.C., États-Unis",
+        "date": "27/05/2025",
+        "description": "Le patron de Tesla a abandonné ses fonctions à la tête du Doge, le département pour l’Efficacité gouvernementale, créé sur mesure pour lui. Juste avant d’avoir à rendre des comptes au Congrès."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.06,
+          50.63
+        ]
+      },
+      "properties": {
+        "titre": "Quête d’informations, doutes et revirement : la fin de vie à tâtons de Martine Sadoine",
+        "categorie": "flash",
+        "importance": 0.5,
+        "lien": "https://www.liberation.fr/societe/sante/quete-dinformations-doutes-et-revirement-la-fin-de-vie-a-tatons-de-martine-sadoine-20250527_GR2VNIMQJVDZZKYT37NA32ZPRU/",
+        "localisation": "Nord, France",
+        "date": "27/05/2025",
+        "description": "Lorsque les douleurs liées à ses maladies sont devenues insupportables, cette Nordiste a d’abord envisagé de se suicider, puis de recourir à une euthanasie en Belgique. Avant de changer d’avis et de f..."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.888334,
+          46.603354
+        ]
+      },
+      "properties": {
+        "titre": "L’État veut mobiliser le privé pour financer la rénovation énergétique",
+        "categorie": "economie",
+        "importance": 0.5,
+        "lien": "https://www.lefigaro.fr/conjoncture/l-etat-veut-mobiliser-le-prive-pour-financer-la-renovation-energetique-20250527",
+        "localisation": "France",
+        "date": "27/05/2025",
+        "description": "Confronté à un afflux de demandes d’aides et à un budget contraint, le gouvernement mise sur les certificats d’économies d’énergie pour faire appel aux financements privés."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3522,
+          48.8566
+        ]
+      },
+      "properties": {
+        "titre": "L’Assemblée nationale adopte la loi légalisant le suicide assisté et l’euthanasie",
+        "categorie": "flash",
+        "importance": 0.75,
+        "lien": "https://www.lefigaro.fr/actualite-france/l-assemblee-nationale-adopte-la-loi-legalisant-le-suicide-assiste-et-l-euthanasie-20250527",
+        "localisation": "Paris, France",
+        "date": "27/05/2025",
+        "description": "DÉCRYPTAGE - Les députés ont largement voté, ce mardi après-midi, les deux propositions de loi «fin de vie» visant à étendre les soins palliatifs et ouvrant une «aide à mourir»."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3522,
+          48.8566
+        ]
+      },
+      "properties": {
+        "titre": "Fin de vie: après le vote à l’Assemblée, une prochaine étape incertaine au Sénat à l’automne",
+        "categorie": "flash",
+        "importance": 0.55,
+        "lien": "https://www.lefigaro.fr/politique/fin-de-vie-apres-le-vote-a-l-assemblee-une-prochaine-etape-incertaine-au-senat-a-l-automne-20250527",
+        "localisation": "Paris, France",
+        "date": "27/05/2025",
+        "description": "DÉCRYPTAGE - Au Palais du Luxembourg, le rapport de force politique n’est pas en faveur d’une aide active à mourir. Malgré cela, tout semble ouvert."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3522,
+          48.8566
+        ]
+      },
+      "properties": {
+        "titre": "Droit à l’aide à mourir : ses partisans saluent un «vote historique», les opposants y voient une «transgression majeure»",
+        "categorie": "flash",
+        "importance": 0.75,
+        "lien": "https://www.lefigaro.fr/actualite-france/droit-a-l-aide-a-mourir-ses-partisans-saluent-un-vote-historique-les-opposants-y-voient-une-transgression-majeure-20250527",
+        "localisation": "Paris, France",
+        "date": "27/05/2025",
+        "description": "L’Assemblée nationale a voté en première lecture ce mardi en faveur du «droit à l’aide à mourir», permettant à cette réforme en gestation depuis plusieurs années de franchir une étape décisive."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3522,
+          48.8566
+        ]
+      },
+      "properties": {
+        "titre": "À deux ans de 2027, Macron en spectateur du choc des ambitions dans son camp",
+        "categorie": "flash",
+        "importance": 0.5,
+        "lien": "https://www.lefigaro.fr/politique/a-deux-ans-de-2027-macron-en-spectateur-du-choc-des-ambitions-dans-son-camp-20250527",
+        "localisation": "Paris, France",
+        "date": "27/05/2025",
+        "description": "DÉCRYPTAGE - Le chef de l’État observe les prétendants à sa succession multiplier les gages de rupture."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3522,
+          48.8566
+        ]
+      },
+      "properties": {
+        "titre": "Gabriel Attal cherche à se faire entendre et pose des jalons pour 2027",
+        "categorie": "flash",
+        "importance": 0.5,
+        "lien": "https://www.lefigaro.fr/politique/gabriel-attal-cherche-a-se-faire-entendre-et-pose-des-jalons-pour-2027-20250527",
+        "localisation": "Paris, France",
+        "date": "27/05/2025",
+        "description": "DÉCRYPTAGE - Le secrétaire général de Renaissance élabore une « doctrine » qu’il veut différente de celle d’Emmanuel Macron, quitte à dérouter son camp."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3522,
+          48.8566
+        ]
+      },
+      "properties": {
+        "titre": "Guillaume Tabard : « Le macronisme, du rêve du dépassement au risque de l’éclatement »",
+        "categorie": "flash",
+        "importance": 0.6,
+        "lien": "https://www.lefigaro.fr/politique/guillaume-tabard-le-macronisme-du-reve-du-depassement-au-risque-de-l-eclatement-20250527",
+        "localisation": "Paris, France",
+        "date": "27/05/2025",
+        "description": "CONTRE-POINT - Emmanuel Macron est le premier président de la République à effectuer un mandat en sachant qu’il ne pourra pas se représenter."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3522,
+          48.8566
+        ]
+      },
+      "properties": {
+        "titre": "L’éditorial de Vincent Trémolet de Villers : « Emmanuel Macron, une présidence en déshérence »",
+        "categorie": "international",
+        "importance": 0.55,
+        "lien": "https://www.lefigaro.fr/vox/politique/l-editorial-de-vincent-tremolet-de-villers-emmanuel-macron-une-presidence-en-desherence-20250527",
+        "localisation": "Paris, France",
+        "date": "27/05/2025",
+        "description": "Le macronisme finissant est aussi sombre que ses débuts furent éclatants."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3522,
+          48.8566
+        ]
+      },
+      "properties": {
+        "titre": "Croyez-vous que le macronisme survivra après 2027 ?",
+        "categorie": "flash",
+        "importance": 0.5,
+        "lien": "https://www.lefigaro.fr/politique/croyez-vous-que-le-macronisme-survivra-apres-2027-20250527",
+        "localisation": "Paris, France",
+        "date": "27/05/2025",
+        "description": ""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -8.2,
+          53.4
+        ]
+      },
+      "properties": {
+        "titre": "Irlande : le gouvernement souhaite interdire l'importation de marchandises issues des colonies israéliennes",
+        "categorie": "international",
+        "importance": 0.75,
+        "lien": "https://www.lefigaro.fr/flash-actu/irlande-le-gouvernement-souhaite-interdire-l-importation-de-marchandises-issues-des-colonies-israeliennes-20250527",
+        "localisation": "Ireland",
+        "date": "27/05/2025",
+        "description": "Très critique vis-à-vis de la politique israélienne menée dans la bande de Gaza, l’Irlande fait partie des États européens ayant officiellement reconnu la Palestine comme État souverain et indépendant..."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0369,
+          38.9072
+        ]
+      },
+      "properties": {
+        "titre": "Les États-Unis suspendent le traitement des demandes de visas étudiants afin d’examiner leurs réseaux sociaux",
+        "categorie": "international",
+        "importance": 0.75,
+        "lien": "https://www.lefigaro.fr/international/les-etats-unis-suspendent-le-traitement-des-demandes-de-visas-etudiants-afin-d-examiner-leurs-reseaux-sociaux-20250527",
+        "localisation": "Washington D.C., États-Unis",
+        "date": "27/05/2025",
+        "description": "L’administration Trump s’en prend de nouveaux aux étudiants étrangers quelques jours après leur avoir interdit d’intégrer la prestigieuse université d’Harvard."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.249,
+          48.846
+        ]
+      },
+      "properties": {
+        "titre": "EN DIRECT – Roland Garros : Monfils renverse Dellien et enflamme le public du court Philippe Chatrier",
+        "categorie": "international",
+        "importance": 0.65,
+        "lien": "https://www.lefigaro.fr/sports/tennis/roland-garros/en-direct-roland-garros-djokovic-monfils-muller-suivez-le-programme-de-la-3e-journee-20250527",
+        "localisation": "Paris, France",
+        "date": "27/05/2025",
+        "description": "Suivez la 3e journée des Internationaux de France. Djokovic s’est qualifié en trois manches et Monfils affronte Dellien en session de nuit."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3522,
+          48.8566
+        ]
+      },
+      "properties": {
+        "titre": "Roland-Garros : victime d’une lourde chute, Gaël Monfils se fait une grosse frayeur (vidéo)",
+        "categorie": "flash",
+        "importance": 0.6,
+        "lien": "https://www.lefigaro.fr/sports/tennis/roland-garros/roland-garros-victime-d-une-lourde-chute-gael-monfils-se-fait-une-grosse-frayeur-video-20250527",
+        "localisation": "Paris, France",
+        "date": "27/05/2025",
+        "description": "Dès le premier jeu de son 1er tour face à Hugo Dellien, le Français a percuté un panneau publicitaire après une glissade incontrôlée."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3522,
+          48.8566
+        ]
+      },
+      "properties": {
+        "titre": "Roland-Garros : exploit de Loïs Boisson, 361e joueuse mondiale qui surprend la tête de série Élise Mertens",
+        "categorie": "international",
+        "importance": 0.35,
+        "lien": "https://www.lefigaro.fr/sports/tennis/roland-garros/roland-garros-exploit-de-lois-boisson-361e-joueuse-mondiale-qui-surprend-la-tete-de-serie-elise-mertens-20250527",
+        "localisation": "Paris, France",
+        "date": "27/05/2025",
+        "description": "La Française a signé une superbe performance en venant à bout de la Belge en trois manches (6-4, 4-6, 6-3)."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.249,
+          48.846
+        ]
+      },
+      "properties": {
+        "titre": "Roland-Garros : quatre smashes sauvés et un passing gagnant, Corentin Moutet signe le point du premier tour",
+        "categorie": "flash",
+        "importance": 0.35,
+        "lien": "https://www.lefigaro.fr/sports/tennis/roland-garros/roland-garros-quatre-smashes-sauves-et-un-passing-gagnant-corentin-moutet-signe-le-point-du-premier-tour-20250527",
+        "localisation": "Paris, France",
+        "date": "27/05/2025",
+        "description": "Le Français a repoussé plusieurs smashes de Clément Tabur avant de signer en bout de course un magistral passing de coup droit qui a cloué sur place son adversaire."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.888334,
+          46.603354
+        ]
+      },
+      "properties": {
+        "titre": "Entre fièvre antisémite et tragédie de Gaza,  les tourments de la communauté juive française",
+        "categorie": "international",
+        "importance": 0.75,
+        "lien": "https://www.lefigaro.fr/vox/societe/entre-fievre-antisemite-et-tragedie-de-gaza-les-tourments-de-la-communaute-juive-francaise-20250527",
+        "localisation": "France",
+        "date": "27/05/2025",
+        "description": "RÉCIT - Depuis le 7 octobre 2023, des voix juives françaises hésitent. Comment critiquer un État en guerre sans nourrir l’antisémitisme ambiant ? Peut-on aimer Israël sans approuver sa politique ? Del..."
+      }
+    }
+  ]
+}

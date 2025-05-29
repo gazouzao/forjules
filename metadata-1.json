@@ -1,0 +1,6 @@
+{
+  "name": "globenews",
+  "description": "An interactive map application to explore GeoJSON news articles, filterable by category, date, and search term.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}

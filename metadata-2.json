@@ -1,0 +1,6 @@
+{
+  "name": "Backend carte",
+  "description": "Fetches news articles from RSS feeds, analyzes them using Gemini for importance, location, and category, and generates a GeoJSON output.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}

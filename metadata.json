@@ -1,0 +1,6 @@
+{
+  "name": "News Intelligence Dashboard",
+  "description": "An integrated application to fetch news articles from RSS feeds, analyze them using Gemini for importance, location, and category, generate GeoJSON output, and display it on an interactive map.",
+  "requestFramePermissions": [],
+  "prompt": "connect both apps that I will give you. The geojson given by the rss analyzer that I will give you will display on the map I will also give you"
+}
