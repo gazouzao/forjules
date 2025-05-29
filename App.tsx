@@ -1,9 +1,9 @@
 
 import React, { useState, useCallback } from 'react';
-import MapAppComponent from './map_app/MapApp';
-import AnalyzerAppComponent from './analyzer_app/AnalyzerApp'; // Correct path to the Analyzer component
-import { GeoJsonOutput as AnalyzerGeoJsonOutput } from './analyzer_app/types'; // Correct path to Analyzer types
-import { GeoJSONData as MapGeoJsonData, GeoJSONFeature as MapGeoJsonFeature } from './map_app/types';
+import MapAppComponent from './MapApp';
+import AnalyzerAppComponent from './AnalyzerApp'; // Correct path to the Analyzer component
+import { GeoJsonOutput as AnalyzerGeoJsonOutput } from './types'; // Correct path to Analyzer types
+import { GeoJSONData as MapGeoJsonData, GeoJSONFeature as MapGeoJsonFeature } from './types';
 
 type AppView = 'map' | 'analyzer';
 
