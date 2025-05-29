@@ -164,7 +164,7 @@ const AnalyzerAppComponent: React.FC<AnalyzerAppProps> = ({ onGeoJsonGenerated }
   const [autoRefreshProgress, setAutoRefreshProgress] = useState<number>(0);
   
   const apiKeyExists = useMemo(() => {
-    const key = process.env.OPENAI_API_KEY;
+    const key = import.meta.env.VITE_OPENAI_API_KEY;
     return key && key !== "MISSING_API_KEY_PLACEHOLDER" && key !== "" && typeof key === 'string' && key.length > 10; 
   }, []);
 

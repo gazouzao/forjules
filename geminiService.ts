@@ -3,7 +3,7 @@ import OpenAI from "openai";
 import { RawArticle, GeminiAnalysisResult } from '../types'; 
 import { OPENAI_MODEL_TEXT } from '../constants';
 
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 
 if (!OPENAI_API_KEY || OPENAI_API_KEY === "MISSING_API_KEY_PLACEHOLDER") {
   console.error("VITE_OPENAI_API_KEY is not set in your .env.local file or is not being passed correctly. Analysis will fail or use placeholder data. Current key value:", OPENAI_API_KEY);
