@@ -1,6 +1,6 @@
 
-import { RawArticle, RssSource } from '../types';
-import { CORS_PROXY_URL } from '../constants';
+import { RawArticle, RssSource } from './types';
+import { CORS_PROXY_URL } from './constants';
 
 const parseRSSFeed = (xmlString: string, sourceName: string): RawArticle[] => {
   const parser = new DOMParser();
