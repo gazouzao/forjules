@@ -1,7 +1,7 @@
 
 import OpenAI from "openai";
-import { RawArticle, GeminiAnalysisResult } from '../types'; 
-import { OPENAI_MODEL_TEXT } from '../constants';
+import { RawArticle, GeminiAnalysisResult } from './types'; 
+import { OPENAI_MODEL_TEXT } from './constants';
 
 const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY;
 
