@@ -42,12 +42,12 @@ export const analyzeArticleContent = async (article: RawArticle): Promise<Partia
   "categorie": "...", // DOIT être l'une des valeurs suivantes (minuscules, sans accent) : flash, economie, environnement, tech, culture, urgent, international. Par défaut: "flash".
   "importance": ..., // Score décimal de 0.0 (faible) à 1.0 (élevé). Évaluer selon : impact international (plus proche de 1.0), catégorie "urgent" pondérée positivement, potentiel de viralité/partage. Nouvelles locales = score plus bas. Cohérence des scores.
   "lien": "Le lien original de l'article",
-  "localisation": "...", // Localisation géographique principale (ex: "Paris, France"). Si non spécifique ou trop général (ex: "Internet"), mettre "N/A".
+  "localisation": "...", // Nom de la localisation géographique principale la plus pertinente identifiée dans l'article (ex: "Paris, France", "Montagne Sainte-Victoire", "Silicon Valley"). Si aucune localisation spécifique n'est mentionnée ou ne peut être déduite, mettre "N/A".
   "date": "...", // Date de publication originale (format YYYY-MM-DD si possible, sinon la date fournie).
   "description": "...", // Description courte et pertinente (max 150 caractères), basée sur le contenu fourni.
   "imageUrl": "...", // URL de l'image originale de l'article, si disponible dans les données d'entrée ou inférable. Sinon, chaîne vide "".
-  "latitude": ..., // Latitude approximative pour "localisation". Si "localisation" est "N/A" ou non déterminable, retourner null.
-  "longitude": ... // Longitude approximative pour "localisation". Si "localisation" est "N/A" ou non déterminable, retourner null.
+  "latitude": ..., // Latitude (décimale) de la localisation principale. Analyser attentivement le titre et la description de l'article pour identifier cette localisation. Retourner une valeur numérique précise. Si aucune coordonnée ne peut être déterminée avec une confiance raisonnable malgré l'analyse du contexte, retourner null.
+  "longitude": ... // Longitude (décimale) de la localisation principale. Analyser attentivement le titre et la description de l'article pour identifier cette localisation. Retourner une valeur numérique précise. Si aucune coordonnée ne peut être déterminée avec une confiance raisonnable malgré l'analyse du contexte, retourner null.
 }
 
 Contraintes impératives :
@@ -55,7 +55,7 @@ Contraintes impératives :
 2.  Ne rien inventer ni modifier du contenu textuel original (titre, lien, description basée sur l'original).
 3.  "categorie" : Choisir parmi la liste fournie.
 4.  "importance" : Calculer selon les critères.
-5.  Coordonnées ("latitude", "longitude") : Précises si possible, sinon null. Pas d'extrapolation.
+5.  Coordonnées ("latitude", "longitude") : DOIVENT être les coordonnées les plus précises possible de la localisation identifiée dans l'article. Privilégier une ville, un lieu spécifique, ou au minimum une région identifiable. Éviter l'extrapolation excessive mais utiliser le contexte pour inférer la localisation la plus probable si elle n'est pas explicitement nommée mais clairement sous-entendue. Retourner null SEULEMENT si le contexte ne permet aucune identification géographique pertinente.
 6.  "imageUrl": Utiliser article.imageUrl si fourni, sinon laisser chaîne vide.
 7.  RÉSULTAT : Uniquement l'objet JSON. Aucun texte ou commentaire en dehors.
 `;
