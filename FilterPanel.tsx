@@ -150,4 +150,3 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({ categories: propCatego
     </div>
   );
 };
-[end of FilterPanel.tsx]
