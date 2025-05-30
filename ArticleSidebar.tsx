@@ -97,28 +97,27 @@ export const ArticleSidebar: React.FC<ArticleSidebarProps> = ({ articles, onArti
             title={`Catégorie: ${categoryDetails.label}\nDate: ${article.date || 'N/A'}\nImportance: ${article.imp.toFixed(2)}`}
             onClick={() => onArticleSelect(article)}
             onMouseEnter={(event) => {
-              setHoveredArticle(article);
-              setHoveredArticle(article);
-              const listItemElement = event.currentTarget;
-              const sidebarElement = sidebarRef.current;
-              if (sidebarElement && listItemElement) {
-                const sidebarRect = sidebarElement.getBoundingClientRect();
-                const listItemRect = listItemElement.getBoundingClientRect();
-
-                // Calculate position relative to the sidebar's top edge, accounting for scroll
-                const popupTop = listItemRect.top - sidebarRect.top;
-
-                setPopupStyle({
-                  position: 'absolute',
-                  top: `${popupTop}px`,
-                  right: 'calc(100% + 10px)', // Position to the left of the sidebar
-                  visibility: 'visible',
-                  opacity: 1,
-                  zIndex: 2000, // High z-index
-                  // Ensure smooth transition for opacity, visibility handled by direct set
-                  transition: 'opacity 0.2s ease-in-out',
-                });
-              }
+              // Temporarily disable complex logic:
+              // setHoveredArticle(article);
+              // const sidebarElement = sidebarRef.current;
+              // const listItemElement = event.currentTarget;
+              // if (sidebarElement && listItemElement) {
+              //   const sidebarRect = sidebarElement.getBoundingClientRect();
+              //   const listItemRect = listItemElement.getBoundingClientRect();
+              //   const popupTop = listItemRect.top - sidebarRect.top;
+              //   setPopupStyle({
+              //     position: 'absolute',
+              //     top: `${popupTop}px`,
+              //     right: 'calc(100% + 10px)',
+              //     visibility: 'visible',
+              //     opacity: 1,
+              //     zIndex: 2000,
+              //     transition: 'opacity 0.2s ease-in-out',
+              //   });
+              // }
+              console.log(`Mouse entered article: ${article.title} (ID: ${article.idx})`);
+              // For an even simpler test, if the above doesn't work:
+              // console.log('Mouse enter event fired on an article item.');
             }}
             onMouseLeave={() => {
               setHoveredArticle(null);
