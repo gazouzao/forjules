@@ -1,55 +1,47 @@
-/* src/styles/custom-popups.css */
+/* src/styles/custom-popups.css - Updated Content */
 
 /* Keyframes for popup animation */
 @keyframes popup-fade-in {
-  from {
+  0% {
     opacity: 0;
-    transform: translateY(20px) scale(0.95);
+    transform: translateY(30px) scale(0.95); /* Start lower and slightly smaller */
   }
-  to {
+  100% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0) scale(1); /* Settle directly at final position */
   }
 }
 
-/* Base styles for the popup container - applied to Leaflet's wrapper */
+/* Apply .popup-container styles to Leaflet's content wrapper */
 .leaflet-custom-popup-wrapper .leaflet-popup-content-wrapper {
-  background: rgba(255, 255, 255, 0.2) !important; /* Semi-transparent white background */
+  background: rgba(255, 255, 255, 0.2) !important;
   backdrop-filter: blur(10px) !important;
-  -webkit-backdrop-filter: blur(10px) !important; /* Safari support */
-  border-radius: 2rem !important; /* Rounded corners */
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1) !important; /* Soft, diffused shadow */
-  border: 1px solid rgba(255, 255, 255, 0.3) !important; /* Subtle white border */
-  padding: 0 !important; /* Remove default Leaflet padding, content div will have its own */
-  font-family: 'Inter', sans-serif; /* Ensure Inter font is applied */
-  /* animation: popup-fade-in 0.3s ease-out forwards; /* May conflict with Leaflet's own open animation */
-  background: rgba(255, 255, 255, 0.25) !important; /* Slightly adjust alpha */
-  backdrop-filter: blur(8px) !important; /* Slightly adjust blur */
-  -webkit-backdrop-filter: blur(8px) !important;
-  border-radius: 1rem !important; /* Adjust border-radius */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important; /* Adjust shadow */
-  border: 1px solid rgba(255, 255, 255, 0.2) !important; /* Adjust border */
-  padding: 0 !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border-radius: 2rem !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  padding: 0 !important; /* Inner div will have padding */
   font-family: 'Inter', sans-serif;
-  /* transition: background 0.2s ease-in-out !important; /* Keep only background transition if hover is simplified */
-  /* Commenting out transition for now to see if it helps with stability */
+  /* max-width: 320px; /* Leaflet's maxWidth option on the popup will control this */
+  /* width: 100%; /* Leaflet handles this */
+  position: relative !important; /* Might be needed if Leaflet's isn't, for close button positioning */
+  animation: popup-fade-in 0.4s ease-out forwards;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background 0.2s ease-in-out !important;
 }
 
-/* Temporarily comment out hover effects to diagnose instability */
-/* .leaflet-popup-content-wrapper.glassmorphism-popup:hover {
+.leaflet-custom-popup-wrapper .leaflet-popup-content-wrapper:hover {
   transform: translateY(-5px) scale(1.01);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15) !important;
   background: rgba(255, 255, 255, 0.3) !important;
-} */
-
-/* Hide default Leaflet tip if it doesn't fit the glassmorphism style */
-.leaflet-custom-popup-wrapper .leaflet-popup-tip-container,
-.leaflet-custom-popup-wrapper .leaflet-popup-tip {
-    display: none !important;
 }
 
+/* Hide Leaflet's default tip */
+.leaflet-custom-popup-wrapper .leaflet-popup-tip-container,
+.leaflet-custom-popup-wrapper .leaflet-popup-tip {
+  display: none !important;
+}
 
-/* Styles for the close button - applied to Leaflet's default close button */
+/* Apply .popup-close-button styles to Leaflet's close button */
 .leaflet-custom-popup-wrapper a.leaflet-popup-close-button {
   position: absolute !important;
   top: 15px !important;
@@ -57,9 +49,8 @@
   color: #4A5568 !important;
   font-size: 1.8rem !important;
   font-weight: 200 !important;
-  line-height: 1 !important; /* Ensure 'x' is centered if it's text */
+  line-height: 1; /* Ensure proper vertical alignment of '×' */
   padding: 0 !important;
-  margin: 0 !important;
   background: none !important;
   border: none !important;
   border-radius: 50% !important;
@@ -69,9 +60,9 @@
   align-items: center !important;
   justify-content: center !important;
   cursor: pointer !important;
-  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out !important;
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
   text-decoration: none !important;
-  z-index: 10 !important;
+  z-index: 10 !important; /* Ensure it's above content if Leaflet's z-indexing is different */
 }
 
 .leaflet-custom-popup-wrapper a.leaflet-popup-close-button:hover {
@@ -79,23 +70,19 @@
   color: #2D3748 !important;
 }
 
-/* Custom scrollbar for popup content - applied to inner content div if needed */
-/* This class will be added to the <p> tag for summary in createPopupContent */
+/* Custom scrollbar for popup content - applied to the summary <p> tag */
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
-
 .custom-scrollbar::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0.05);
   border-radius: 10px;
 }
-
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.2);
   border-radius: 10px;
 }
-
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.3);
 }

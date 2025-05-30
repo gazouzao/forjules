@@ -35,23 +35,23 @@ const POPUP_ANCHOR_OFFSET_Y = -(UBER_PIN_TOTAL_VISUAL_HEIGHT - (UBER_PIN_BASE_HE
 
 const lockedPopupOptions: L.PopupOptions = {
   autoClose: false,
-  closeOnClick: false, 
-  closeButton: true, 
+  closeOnClick: false,
+  closeButton: true, // Leaflet renders its own button, we style it
   minWidth: 240,
-  maxWidth: 360, // Updated maxWidth
+  maxWidth: 320, // Max width for the styled content wrapper
   className: 'leaflet-custom-popup-wrapper',
-  offset: [0, POPUP_ANCHOR_OFFSET_Y] 
+  offset: [0, POPUP_ANCHOR_OFFSET_Y] // Original offset for locked popups
 };
 
 const hoverPopupOptions: L.PopupOptions = {
   autoClose: true,
   closeButton: false,
   closeOnClick: false,
-  autoPan: false, // Added autoPan: false
+  autoPan: false,
   minWidth: 240,
-  maxWidth: 360, // Updated maxWidth
+  maxWidth: 320, // Match locked popup's content width
   className: 'leaflet-custom-popup-wrapper',
-  offset: [0, POPUP_ANCHOR_OFFSET_Y - 10] // Adjusted offset
+  offset: [0, POPUP_ANCHOR_OFFSET_Y - 10] // Retain adjusted offset for hover
 };
 
 
@@ -82,28 +82,34 @@ export const MapDisplay: React.FC<MapDisplayProps> = ({
     // Ensure summary is always a string, even if description and title are null/undefined.
     const articleTitle = article.title || 'Sans titre';
     const articleDescription = article.description || '';
-    // Shorter summary for smaller fonts, and ensure it's not empty if title is short.
-    const summary = articleDescription || (articleTitle.length > 80 ? articleTitle.substring(0, 77) + '...' : articleTitle) || articleTitle;
+    // Using the summary logic from the user's PopupContentRenderer (via subtask description)
+    const summary = articleDescription || (articleTitle.length > 100 ? articleTitle.substring(0, 97) + '...' : articleTitle);
 
-    // Construct HTML string carefully, ensuring no JS comments are inside the backticks.
-    let html = `<div class="p-4 font-inter text-gray-700">`;
+    // This is the HTML for the *content* of the popup, matching PopupContentRenderer's inner div
+    let html = `<div class="p-6 font-inter text-gray-800">`; // Matches inner div of PopupContentRenderer
 
     if (hasImage) {
-      html += `<img src="${article.imageUrl}" alt="${articleTitle.substring(0,30)}" class="w-full h-28 object-cover rounded-lg mb-3 shadow-sm" onerror="this.src='https://placehold.co/400x200/CCCCCC/333333?text=Image+Error';" />`;
+      // Using class="w-full h-32 object-cover rounded-xl mb-4 shadow-md"
+      html += `<img src="${article.imageUrl}" alt="${articleTitle.substring(0,30)}" class="w-full h-32 object-cover rounded-xl mb-4 shadow-md" onerror="this.src='https://placehold.co/400x200/CCCCCC/333333?text=Image+Error';" />`;
     }
 
-    html += `<h3 class="text-md font-semibold mb-1 leading-tight text-gray-800">${articleTitle}</h3>`;
-    html += `<p class="text-xs text-gray-600 mb-3 max-h-16 overflow-y-auto custom-scrollbar pr-1">${summary}</p>`;
+    // Using class="text-xl font-bold mb-2 leading-tight"
+    html += `<h3 class="text-xl font-bold mb-2 leading-tight text-gray-800">${articleTitle}</h3>`;
+    // Using class="text-sm text-gray-600 mb-5 max-h-20 overflow-y-auto custom-scrollbar pr-1"
+    html += `<p class="text-sm text-gray-600 mb-5 max-h-20 overflow-y-auto custom-scrollbar pr-1">${summary}</p>`;
+
     html += `<div class="flex justify-between items-center">`;
-    html += `<a href="${article.lien}" target="_blank" rel="noopener noreferrer" class="inline-block px-4 py-2 text-xs font-medium text-white bg-purple-500 hover:bg-purple-600 rounded-full transition-all duration-200 shadow-xs focus:outline-none focus:ring-2 focus:ring-purple-400">Lire l'article</a>`;
+    // Using class="inline-block px-5 py-2.5 text-base font-semibold text-white bg-purple-600 hover:bg-purple-700 rounded-full transition-all duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+    html += `<a href="${article.lien}" target="_blank" rel="noopener noreferrer" class="inline-block px-5 py-2.5 text-base font-semibold text-white bg-purple-600 hover:bg-purple-700 rounded-full transition-all duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500">Lire l'article</a>`;
 
     if (article.localisation) {
-      const locText = article.localisation.length > 25 ? article.localisation.substring(0,25) + '...' : article.localisation;
-      html += `<span class="text-xs text-gray-500 italic">${locText}</span>`;
+      // Using class="text-xs text-gray-500 italic" and substring(0,30)
+      const locText = article.localisation.length > 30 ? article.localisation.substring(0,30) + '...' : article.localisation;
+      html += `<span class="text-xs text-gray-500 italic" title="Localisation">${locText}</span>`;
     }
 
     html += `</div>`; // Close flex container
-    html += `</div>`; // Close main content div
+    html += `</div>`; // Close main p-6 content div
 
     return html;
   }, []);
