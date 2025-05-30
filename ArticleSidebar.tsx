@@ -95,50 +95,34 @@ export const ArticleSidebar: React.FC<ArticleSidebarProps> = ({ articles, onArti
                         hover:bg-purple-700/90 hover:text-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500
                         cursor-pointer transform hover:scale-[1.01]`}
             title={`Catégorie: ${categoryDetails.label}\nDate: ${article.date || 'N/A'}\nImportance: ${article.imp.toFixed(2)}`}
+            style={{ pointerEvents: 'auto' }}
             onClick={() => onArticleSelect(article)}
             onMouseEnter={(event) => {
-              // Temporarily disable complex logic:
-              // setHoveredArticle(article);
-              // const sidebarElement = sidebarRef.current;
-              // const listItemElement = event.currentTarget;
-              // if (sidebarElement && listItemElement) {
-              //   const sidebarRect = sidebarElement.getBoundingClientRect();
-              //   const listItemRect = listItemElement.getBoundingClientRect();
-              //   const popupTop = listItemRect.top - sidebarRect.top;
-              //   setPopupStyle({
-              //     position: 'absolute',
-              //     top: `${popupTop}px`,
-              //     right: 'calc(100% + 10px)',
-              //     visibility: 'visible',
-              //     opacity: 1,
-              //     zIndex: 2000,
-              //     transition: 'opacity 0.2s ease-in-out',
-              //   });
-              // }
-              console.log(`Mouse entered article: ${article.title} (ID: ${article.idx})`);
-              // For an even simpler test, if the above doesn't work:
-              // console.log('Mouse enter event fired on an article item.');
+              setHoveredArticle(article);
+              const listItemElement = event.currentTarget;
+              const sidebarElement = sidebarRef.current;
+              if (sidebarElement && listItemElement) {
+                const sidebarRect = sidebarElement.getBoundingClientRect();
+                const listItemRect = listItemElement.getBoundingClientRect();
+                const popupTop = listItemRect.top - sidebarRect.top;
+                setPopupStyle({
+                  position: 'absolute',
+                  top: `${popupTop}px`,
+                  right: 'calc(100% + 10px)', // Position to the left of the sidebar
+                  visibility: 'visible',
+                  opacity: 1,
+                  zIndex: 2000,
+                  transition: 'opacity 0.2s ease-in-out',
+                });
+              }
             }}
             onMouseLeave={() => {
               setHoveredArticle(null);
-              // Delay hiding to allow fade-out, then set visibility to hidden
-              setPopupStyle(prev => ({ ...prev, opacity: 0, transition: 'opacity 0.2s ease-in-out, visibility 0s linear 0.2s' }));
-              // Set visibility to hidden after transition.
-              // setTimeout(() => {
-              //  if (!hoveredArticle) setPopupStyle(prev => ({...prev, visibility: 'hidden'}));
-              // }, 200);
-              // The above setTimeout logic is tricky with React state.
-              // A simpler approach for onMouseLeave is to just set opacity to 0 and rely on CSS for transition.
-              // The visibility can be controlled by whether hoveredArticle is null or not for rendering the popup.
-              // Let's refine onMouseLeave to:
-              // setPopupStyle(prev => ({ ...prev, opacity: 0 }));
-              // And then the visibility will be handled by the conditional rendering: {hoveredArticle && ...}
-              // However, the current popupStyle state also controls visibility.
-              // Let's stick to a simpler mouseLeave for now, then refine if transition is problematic.
-              // The original onMouseLeave was:
-              // setPopupStyle({ visibility: 'hidden', opacity: 0, transition: 'visibility 0s linear 300ms, opacity 300ms ease-in-out' });
-              // This is fine, it hides after opacity transition. Let's ensure the opacity transition duration matches.
-              setPopupStyle({ visibility: 'hidden', opacity: 0, transition: 'opacity 0.2s ease-in-out, visibility 0s linear 0.2s' });
+              setPopupStyle({
+                visibility: 'hidden',
+                opacity: 0,
+                transition: 'opacity 0.2s ease-in-out, visibility 0s linear 0.2s'
+              });
             }}
           >
             <span 
@@ -150,9 +134,18 @@ export const ArticleSidebar: React.FC<ArticleSidebarProps> = ({ articles, onArti
               <h3 className="font-semibold text-sm truncate text-neutral-800 group-hover:text-purple-50">
                 {article.title}
               </h3>
-              <p className="text-xs text-neutral-600 group-hover:text-purple-200">
+              <p className="text-xs text-neutral-600 group-hover:text-purple-200 mb-1"> {/* Added mb-1 for spacing */}
                 {article.date || 'Date N/A'}
               </p>
+              <a
+                href={article.lien}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()} // Prevent sidebar item click if button is on top
+                className="mt-1 inline-block px-2 py-0.5 text-xs font-medium text-sky-600 bg-sky-100 hover:bg-sky-200 rounded-md transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-sky-500 group-hover:text-sky-700 group-hover:bg-sky-200"
+              >
+                Lire l'article
+              </a>
             </div>
           </div>
         );
