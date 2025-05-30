@@ -102,7 +102,7 @@ Contraintes impératives :
         // Fallback logic for imageUrl, prioritizing AI's output, then scraped, then RSS (non-picsum)
         const rssImageUrl = (article.imageUrl && !article.imageUrl.includes('picsum.photos')) ? article.imageUrl : "";
         parsedData.imageUrl = parsedData.imageUrl || article.scrapedImageUrl || rssImageUrl || "";
-        
+
         // Normalize latitude and longitude to be number or null
         parsedData.latitude = typeof parsedData.latitude === 'number' ? parsedData.latitude : null;
         parsedData.longitude = typeof parsedData.longitude === 'number' ? parsedData.longitude : null;

@@ -106,7 +106,7 @@ export const fetchRssFeed = async (rssSource: RssSource): Promise<RawArticle[]> 
     if (!xmlString.trim()) {
         throw new Error(`Empty response from ${rssSource.name}. URL: ${rssSource.url}`);
     }
-    
+
     const parsedArticles = parseRSSFeed(xmlString, rssSource.name);
     const articlesWithScrapedContent: RawArticle[] = [];
 
@@ -132,8 +132,8 @@ export const fetchRssFeed = async (rssSource: RssSource): Promise<RawArticle[]> 
       } catch (scrapeError) {
         console.error(`Scraping failed for "${article.title}" (${article.link}), pushing article without full content. Error:`, scrapeError);
         articlesWithScrapedContent.push({
-            ...article, 
-            fullText: undefined, 
+            ...article,
+            fullText: undefined,
             scrapedImageUrl: undefined,
         });
       }

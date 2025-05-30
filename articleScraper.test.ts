@@ -38,7 +38,7 @@ describe('scrapeArticleContent', () => {
     });
 
     const result = await scrapeArticleContent('https://example.com/article1');
-    
+
     // Expected text: H1 + P + P, scripts, style, footer, nav removed by sectionsToRemove
     // Cheerio's text() method concatenates text nodes. Order might depend on structure.
     // Whitespace normalization is done by the scraper.
@@ -94,7 +94,7 @@ describe('scrapeArticleContent', () => {
     expect(result.textContent).toBe('Intro text. More intro. Main content here. Important stuff.');
     expect(result.mainImageUrl).toBeNull();
   });
-  
+
   test('handles network error during fetch', async () => {
     mockedAxios.get.mockRejectedValue(new Error('Network error'));
 
@@ -121,7 +121,7 @@ describe('scrapeArticleContent', () => {
         <head>
           <title>Invalid Image URL</title>
           <meta property="og:image" content="
-          http://[::1]:namedport" /> 
+          http://[::1]:namedport" />
         </head>
         <body><article><p>Content</p></article></body>
       </html>
@@ -142,7 +142,7 @@ describe('scrapeArticleContent', () => {
     const htmlContent = `
       <html>
         <body>
-          <div class="very-short-content"><p>Too short.</p></div> 
+          <div class="very-short-content"><p>Too short.</p></div>
           Some other text directly in body. This part makes it long enough.
           And more text to ensure the body is chosen.
           This is a test case for the body fallback logic when preferred selectors
@@ -177,4 +177,189 @@ describe('scrapeArticleContent', () => {
     expect(result.mainImageUrl).toBeNull();
   });
 
+});
+
+describe('Image Extraction Logic', () => {
+  beforeEach(() => {
+    mockedAxios.get.mockReset();
+  });
+
+  test('extracts twitter:image when og:image is missing', async () => {
+    const htmlContent = `
+      <html><head><title>Twitter Image Test</title>
+        <meta name="twitter:image" content="https://example.com/twitter-image.jpg">
+      </head><body><article><p>Text</p></article></body></html>`;
+    mockedAxios.get.mockResolvedValue({ status: 200, data: htmlContent, headers: { 'content-type': 'text/html' } });
+    const result = await scrapeArticleContent('https://example.com/twitter-img-test');
+    expect(result.mainImageUrl).toBe('https://example.com/twitter-image.jpg');
+  });
+
+  test('extracts schema.org image (ImageObject) when others are missing', async () => {
+    const htmlContent = `
+      <html><head><title>Schema ImageObject Test</title></head>
+      <body><article><p>Text</p></article>
+        <script type="application/ld+json">
+          {
+            "@context": "https://schema.org",
+            "@type": "NewsArticle",
+            "image": {
+              "@type": "ImageObject",
+              "url": "https://example.com/schema-image.jpg"
+            }
+          }
+        </script>
+      </body></html>`;
+    mockedAxios.get.mockResolvedValue({ status: 200, data: htmlContent, headers: { 'content-type': 'text/html' } });
+    const result = await scrapeArticleContent('https://example.com/schema-imgobj-test');
+    expect(result.mainImageUrl).toBe('https://example.com/schema-image.jpg');
+  });
+
+  test('extracts schema.org image (string URL) when others are missing', async () => {
+    const htmlContent = `
+      <html><head><title>Schema String URL Test</title></head>
+      <body><article><p>Text</p></article>
+        <script type="application/ld+json">
+          {
+            "@context": "https://schema.org",
+            "@type": "NewsArticle",
+            "image": "https://example.com/schema-string-image.jpg"
+          }
+        </script>
+      </body></html>`;
+    mockedAxios.get.mockResolvedValue({ status: 200, data: htmlContent, headers: { 'content-type': 'text/html' } });
+    const result = await scrapeArticleContent('https://example.com/schema-string-test');
+    expect(result.mainImageUrl).toBe('https://example.com/schema-string-image.jpg');
+  });
+
+  test('extracts schema.org image (array of images, takes first valid)', async () => {
+    const htmlContent = `
+      <html><head><title>Schema Array Test</title></head>
+      <body><article><p>Text</p></article>
+        <script type="application/ld+json">
+          {
+            "@context": "https://schema.org",
+            "@type": "NewsArticle",
+            "image": [
+              { "@type": "ImageObject", "url": "https://example.com/schema-array-image.jpg" },
+              { "@type": "ImageObject", "url": "https://example.com/another-image.jpg" }
+            ]
+          }
+        </script>
+      </body></html>`;
+    mockedAxios.get.mockResolvedValue({ status: 200, data: htmlContent, headers: { 'content-type': 'text/html' } });
+    const result = await scrapeArticleContent('https://example.com/schema-array-test');
+    expect(result.mainImageUrl).toBe('https://example.com/schema-array-image.jpg');
+  });
+
+  test('extracts schema.org image (from @graph array)', async () => {
+    const htmlContent = `
+      <html><head><title>Schema Graph Test</title></head>
+      <body><article><p>Text</p></article>
+        <script type="application/ld+json">
+          {
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "WebPage",
+                "name": "Some WebPage"
+              },
+              {
+                "@type": "NewsArticle",
+                "headline": "Article Headline",
+                "image": { "@type": "ImageObject", "url": "https://example.com/schema-graph-image.jpg" }
+              }
+            ]
+          }
+        </script>
+      </body></html>`;
+    mockedAxios.get.mockResolvedValue({ status: 200, data: htmlContent, headers: { 'content-type': 'text/html' } });
+    const result = await scrapeArticleContent('https://example.com/schema-graph-test');
+    expect(result.mainImageUrl).toBe('https://example.com/schema-graph-image.jpg');
+  });
+
+  test('prefers og:image over twitter:image and schema.org', async () => {
+    const htmlContent = `
+      <html><head><title>Preference Test</title>
+        <meta property="og:image" content="https://example.com/og-preferred.jpg">
+        <meta name="twitter:image" content="https://example.com/twitter-not-preferred.jpg">
+        <script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsArticle","image":"https://example.com/schema-not-preferred.jpg"}</script>
+      </head><body><article><p>Text</p></article></body></html>`;
+    mockedAxios.get.mockResolvedValue({ status: 200, data: htmlContent, headers: { 'content-type': 'text/html' } });
+    const result = await scrapeArticleContent('https://example.com/pref-test1');
+    expect(result.mainImageUrl).toBe('https://example.com/og-preferred.jpg');
+  });
+
+  test('prefers twitter:image over schema.org when og:image is missing', async () => {
+    const htmlContent = `
+      <html><head><title>Preference Test</title>
+        <meta name="twitter:image" content="https://example.com/twitter-preferred.jpg">
+        <script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsArticle","image":"https://example.com/schema-not-preferred.jpg"}</script>
+      </head><body><article><p>Text</p></article></body></html>`;
+    mockedAxios.get.mockResolvedValue({ status: 200, data: htmlContent, headers: { 'content-type': 'text/html' } });
+    const result = await scrapeArticleContent('https://example.com/pref-test2');
+    expect(result.mainImageUrl).toBe('https://example.com/twitter-preferred.jpg');
+  });
+
+  test('resolves relative twitter:image URL', async () => {
+    const htmlContent = `
+      <html><head><title>Relative Twitter Image</title>
+        <meta name="twitter:image" content="../images/twitter-relative.png">
+      </head><body><article><p>Text</p></article></body></html>`;
+    mockedAxios.get.mockResolvedValue({ status: 200, data: htmlContent, headers: { 'content-type': 'text/html' } });
+    const result = await scrapeArticleContent('https://example.com/articles/post1');
+    expect(result.mainImageUrl).toBe('https://example.com/images/twitter-relative.png');
+  });
+
+  test('resolves relative schema.org image URL', async () => {
+    const htmlContent = `
+      <html><head><title>Relative Schema Image</title></head>
+      <body><article><p>Text</p></article>
+      <script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsArticle","image":"/img/schema-relative.jpeg"}</script>
+      </body></html>`;
+    mockedAxios.get.mockResolvedValue({ status: 200, data: htmlContent, headers: { 'content-type': 'text/html' } });
+    const result = await scrapeArticleContent('https://example.com/page');
+    expect(result.mainImageUrl).toBe('https://example.com/img/schema-relative.jpeg');
+  });
+});
+
+describe('Text Cleaning Specifics', () => {
+  beforeEach(() => {
+    mockedAxios.get.mockReset();
+  });
+
+  test('removes nested unwanted elements from selected article content', async () => {
+    const htmlContent = `
+      <html><body>
+        <article class="article-body">
+          <p>Main paragraph 1.</p>
+          <aside>This is a related link box, it should be removed by sectionsToRemove.</aside>
+          <p>Main paragraph 2.</p>
+          <script>alert('bad stuff should be removed by sectionsToRemove')</script>
+          <div><form><input type="text" value="form should be removed"></form></div>
+          <p>Main paragraph 3 with <a href="#">a link</a>.</p>
+        </article>
+      </body></html>
+    `;
+    mockedAxios.get.mockResolvedValue({ status: 200, data: htmlContent, headers: { 'content-type': 'text/html' } });
+    const result = await scrapeArticleContent('https://example.com/nested-clean');
+    // The text from aside, script, form should be gone. Link text should remain.
+    expect(result.textContent).toBe('Main paragraph 1. Main paragraph 2. Main paragraph 3 with a link.');
+  });
+
+  test('text extraction handles case where a preferred selector is empty but a later one has content', async () => {
+    const htmlContent = `
+      <html><body>
+        <article class="article-body"></article>
+        <div class="post-content">
+            <p>This is the actual content.</p>
+            <p>More text here.</p>
+        </div>
+      </body></html>
+    `;
+    // 'article[class*="body"]' is tried before 'div[class*="post-content"]'
+    // '.article-body' is empty, so it should fall through to '.post-content'
+    mockedAxios.get.mockResolvedValue({ status: 200, data: htmlContent, headers: { 'content-type': 'text/html' } });
+    const result = await scrapeArticleContent('https://example.com/selector-fallback');
+    expect(result.textContent).toBe('This is the actual content. More text here.');
+  });
 });

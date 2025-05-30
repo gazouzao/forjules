@@ -44,7 +44,7 @@ describe('FilterPanel Component', () => {
     scrollLeftSpy?.mockRestore();
     scrollBySpy?.mockRestore();
   });
-  
+
   const renderPanel = (activeCategory: string = 'all') => {
     return render(
       <FilterPanel
@@ -57,7 +57,7 @@ describe('FilterPanel Component', () => {
 
   test('renders correctly with initial styling, "Tous" button, and category buttons', () => {
     renderPanel();
-    
+
     const panelContainer = screen.getByRole('tablist').parentElement; // The div wrapping arrows and scrollable area
     const scrollableArea = screen.getByRole('tablist'); // This is the scrollContainerRef div
     expect(scrollableArea).toHaveClass('bg-white/60', 'backdrop-blur-md', 'rounded-full', 'shadow-lg');
@@ -120,7 +120,7 @@ describe('FilterPanel Component', () => {
       renderPanel();
       const scrollContainer = screen.getByRole('tablist');
       setupDOMSpies(scrollContainer, { scrollWidth: 300, clientWidth: 300, scrollLeft: 0 });
-      
+
       // Trigger scroll handler manually after spies are set
       // In the component, handleScroll is called on mount & resize. Here we force an update.
       // A more robust way would be to simulate the event if possible or directly call a re-render.
@@ -139,7 +139,7 @@ describe('FilterPanel Component', () => {
       const scrollContainer = screen.getByRole('tablist');
       setupDOMSpies(scrollContainer, { scrollWidth: 500, clientWidth: 300, scrollLeft: 0 });
       act(() => { fireEvent.scroll(scrollContainer); });
-      
+
       expect(screen.queryByLabelText(/faire défiler vers la gauche/i)).not.toBeInTheDocument();
       expect(screen.getByLabelText(/faire défiler vers la droite/i)).toBeInTheDocument();
     });
@@ -169,7 +169,7 @@ describe('FilterPanel Component', () => {
       renderPanel();
       const scrollContainer = screen.getByRole('tablist');
       // Ensure scrollBy is spied on the specific instance
-      scrollBySpy = jest.spyOn(scrollContainer, 'scrollBy'); 
+      scrollBySpy = jest.spyOn(scrollContainer, 'scrollBy');
       setupDOMSpies(scrollContainer, { scrollWidth: 500, clientWidth: 300, scrollLeft: 0 });
       act(() => { fireEvent.scroll(scrollContainer); }); // update arrow visibility
 
@@ -200,7 +200,7 @@ describe('FilterPanel Component', () => {
     const sportButton = screen.getByRole('tab', { name: mockCategoryDetails.sport.name });
     expect(sportButton).toHaveAttribute('aria-selected', 'false');
   });
-  
+
   test('buttons have focus styling classes', () => {
     renderPanel();
     const allButton = screen.getByRole('tab', { name: mockCategoryDetails.all.name });
@@ -235,7 +235,7 @@ describe('Animated Slider Functionality', () => {
 
   test('slider is positioned correctly under the initially active "All" button', async () => {
     const { container } = renderPanel('all');
-    
+
     const allButton = screen.getByRole('tab', { name: mockCategoryDetails.all.name });
     mockButtonDimensions(allButton, { offsetLeft: 10, offsetWidth: 100 });
 
@@ -256,10 +256,10 @@ describe('Animated Slider Functionality', () => {
 
   test('slider updates position and color when activeCategory changes', async () => {
     const { rerender, container } = renderPanel('all');
-    
+
     const allButton = screen.getByRole('tab', { name: mockCategoryDetails.all.name });
     mockButtonDimensions(allButton, { offsetLeft: 10, offsetWidth: 100 });
-    
+
     const techButton = screen.getByRole('tab', { name: mockCategoryDetails.tech.name });
     mockButtonDimensions(techButton, { offsetLeft: 120, offsetWidth: 110 });
 
@@ -279,7 +279,7 @@ describe('Animated Slider Functionality', () => {
         onSelectCategory={mockOnSelectCategory}
       />
     );
-    
+
     // Mock dimensions for the new active button ("tech") again after re-render if refs might have changed
     // or ensure the mock persists. Here, re-querying and re-mocking is safer.
     const updatedTechButton = screen.getByRole('tab', { name: mockCategoryDetails.tech.name });

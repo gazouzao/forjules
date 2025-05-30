@@ -60,7 +60,7 @@ describe('SearchPanel Component', () => {
     render(<SearchPanel {...defaultProps} />);
 
     const toggleButton = screen.getByRole('button', { name: /ouvrir la recherche et filtres de date/i });
-    
+
     // Open panel
     await user.click(toggleButton);
     expect(toggleButton).toHaveAttribute('aria-expanded', 'true');
@@ -105,7 +105,7 @@ describe('SearchPanel Component', () => {
   test('onDateChange callback is called when date slider value changes', async () => {
     const user = userEvent.setup();
     render(<SearchPanel {...defaultProps} />);
-    
+
     const toggleButton = screen.getByRole('button', { name: /ouvrir la recherche et filtres de date/i });
     await user.click(toggleButton); // Open panel
 
@@ -126,7 +126,7 @@ describe('SearchPanel Component', () => {
     await user.click(toggleButton); // Open panel
 
     const searchInput = await screen.findByPlaceholderText(/rechercher un titre.../i);
-    
+
     // The component has a setTimeout of 180ms before focusing
     await waitFor(() => expect(searchInput).toHaveFocus(), { timeout: 300 });
   });

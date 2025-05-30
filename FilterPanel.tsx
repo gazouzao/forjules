@@ -63,8 +63,8 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({ categories: propCatego
       sliderRef.current.style.left = `${activeButton.offsetLeft + sliderPadding / 2}px`;
       sliderRef.current.style.width = `${activeButton.offsetWidth - sliderPadding}px`;
       
-      const details = activeCategory === 'all' 
-        ? { color: DEFAULT_PIN_COLOR } 
+      const details = activeCategory === 'all'
+        ? { color: DEFAULT_PIN_COLOR }
         : getCategoryDetails(activeCategory);
       sliderRef.current.style.backgroundColor = details.color;
     }
@@ -76,7 +76,7 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({ categories: propCatego
       scrollContainerRef.current.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
     }
   };
-  
+
   const allButtonDetails: CategoryDetail & { key: string } = {
       key: 'all', name: 'Tous', color: DEFAULT_PIN_COLOR, emoji: '📰',
   };
@@ -106,11 +106,11 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({ categories: propCatego
           className="absolute top-1/2 -translate-y-1/2 h-[calc(100%-8px)] rounded-full transition-[left,width,background-color] duration-300 ease-out pointer-events-none -z-[1]"
           aria-hidden="true"
         />
-        
+
         {[allButtonDetails, ...propCategories.map(catKey => ({ ...getCategoryDetails(catKey), key: catKey }))].map((details) => {
           const categoryKey = details.key;
           const isActive = activeCategory === categoryKey;
-          
+
           return (
             <button
               ref={(el) => buttonRefs.current.set(categoryKey, el)}
@@ -118,12 +118,12 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({ categories: propCatego
               onClick={() => onSelectCategory(categoryKey)}
               className={`
                 relative z-10 flex items-center justify-center gap-x-1.5 sm:gap-x-2 min-w-max
-                py-1.5 sm:py-2 px-3 sm:px-4 rounded-full 
+                py-1.5 sm:py-2 px-3 sm:px-4 rounded-full
                 text-sm font-medium bg-transparent border-none
-                transition-all ease-out duration-300 
+                transition-all ease-out duration-300
                 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
                 ${isActive ? 'text-white' : 'text-neutral-700 hover:bg-black/10'}
-                ${isActive ? '' : 'hover:scale-105'} 
+                ${isActive ? '' : 'hover:scale-105'}
               `}
               // Removed direct background styling, relies on slider now
               // Removed direct box-shadow, could be added to slider or button if needed
