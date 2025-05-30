@@ -16,7 +16,8 @@ interface MapDisplayProps {
   articlesForMap: MarkerArticle[];
   setMapInstance: (map: L.Map | null) => void;
   mapInstance: L.Map | null; // Prop for external components to use the map
-  onMapClick: () => void; 
+  onMapClick: () => void;
+  registerMarker?: (articleId: string, marker: L.Marker) => void;
 }
 
 const UBER_PIN_HEAD_HEIGHT = 26;
@@ -56,6 +57,7 @@ export const MapDisplay: React.FC<MapDisplayProps> = ({
   setMapInstance,
   mapInstance, // Received from parent, used by other effects
   onMapClick: onMapClickProp,
+  registerMarker,
 }) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const leafletMapRef = useRef<L.Map | null>(null); // Local ref for the map instance
@@ -312,42 +314,43 @@ export const MapDisplay: React.FC<MapDisplayProps> = ({
         marker.article = article;
         marker.minZoomShowLevel = article.minZoom;
 
-        marker.on('click', (e) => {
-            L.DomEvent.stopPropagation(e.originalEvent);
-            if (!mapInstance) return;
-            const targetZoom = Math.min(mapInstance.getMaxZoom(), mapInstance.getZoom() + LIGHT_ZOOM_INCREMENT);
-            mapInstance.flyTo(marker.getLatLng(), targetZoom, { animate: true, duration: 0.7 }).once('moveend', () => {
-                if (!mapInstance) return;
-                openLockedPopup(marker.article, marker.getLatLng());
-            });
-        });
+        // Bind popup content but let MapApp control opening/closing for hover/select
+        const popupContent = createPopupContent(article);
+        marker.bindPopup(popupContent, lockedPopupOptions); // Use lockedPopupOptions or similar suitable options
 
-        marker.on('mouseover', (eL) => {
-            if (!mapInstance || !hoverPopupInstanceRef.current || currentLockedArticleIdxRef.current === article.idx) return; 
-            hoverPopupInstanceRef.current.setLatLng(marker.getLatLng()).setContent(createPopupContent(article));
-            if (!mapInstance.hasLayer(hoverPopupInstanceRef.current)) mapInstance.openPopup(hoverPopupInstanceRef.current);
-        });
+        // Register the marker with MapApp
+        if (registerMarker && article.idx != null) {
+          registerMarker(article.idx.toString(), marker);
+        }
         
-        marker.on('mouseout', (eL) => {
-            if (!mapInstance || !hoverPopupInstanceRef.current) return;
-            const popupElement = hoverPopupInstanceRef.current.getElement();
-            if (popupElement && eL.originalEvent.relatedTarget && popupElement.contains(eL.originalEvent.relatedTarget as Node)) return; 
-            if (mapInstance.hasLayer(hoverPopupInstanceRef.current)) mapInstance.closePopup(hoverPopupInstanceRef.current);
-        });
-        
+        // Removed direct marker.on('click'), marker.on('mouseover'), marker.on('mouseout')
+        // as MapApp will now manage opening popups on these markers via markerRefs.
+        // Leaflet's default click behavior will open the bound popup if not overridden by MapApp.
+        // For spiderfied markers, the existing click listener that calls openLockedPopup can remain,
+        // as that's a specific interaction for spiderfied elements.
+        // However, for consistency, even spiderfied marker clicks could eventually call an onMarkerSelect prop.
+        // For now, let's keep spiderfy click logic as is, but main marker interaction is via MapApp.
+
         newIndividualMarkers.set(article.idx, marker);
         mcg.addLayer(marker);
     });
     individualMarkersRef.current = newIndividualMarkers;
 
+    // Re-opening a previously "locked" popup if it's still in the filtered set.
+    // This logic might need review if MapApp now fully controls selection state.
+    // If MapApp's handleArticleSelect sets a selectedArticleId state, that could drive this.
+    // For now, keeping this local re-open logic if it was previously locked.
     if (articleToReopen && latLngToRestore) {
       const stillExistsAndVisible = articlesForMap.find(a => a.idx === articleToReopen!.idx);
       if (stillExistsAndVisible) {
-        openLockedPopup(stillExistsAndVisible, latLngToRestore);
+        // Instead of openLockedPopup, directly open the marker's bound popup
+        const markerToReopen = newIndividualMarkers.get(stillExistsAndVisible.idx);
+        markerToReopen?.openPopup();
+        // openLockedPopup(stillExistsAndVisible, latLngToRestore); // Old way
       }
     }
  
-  }, [mapInstance, articlesForMap, openLockedPopup, createPopupContent]);
+  }, [mapInstance, articlesForMap, openLockedPopup, createPopupContent, registerMarker]); // Added registerMarker
 
   return <div ref={mapContainerRef} id="map" className="h-full w-full z-0" aria-label="Carte interactive des actualités" />;
 };

@@ -20,8 +20,11 @@ const MapAppComponent: React.FC<MapAppProps> = ({ initialGeoJsonData }) => {
   const [mapInstance, setMapInstance] = useState<L.Map | null>(null);
   const [uniqueCategoryKeys, setUniqueCategoryKeys] = useState<string[]>([]);
   const debounceTimeoutRef = useRef<number | null>(null);
+  const markerRefs = useRef(new Map<string, L.Marker>());
+  // const [hoveredArticleId, setHoveredArticleId] = useState<string | null>(null); // REMOVED
   
   useEffect(() => {
+    markerRefs.current.clear(); // Clear refs when initial data changes
     if (initialGeoJsonData && initialGeoJsonData.features) {
       const processedArticles: MarkerArticle[] = initialGeoJsonData.features.map((feature: GeoJSONFeature, idx: number) => {
         const props = feature.properties;
@@ -68,6 +71,7 @@ const MapAppComponent: React.FC<MapAppProps> = ({ initialGeoJsonData }) => {
       });
       setUniqueCategoryKeys(orderedUniqueCats);
     } else {
+      markerRefs.current.clear(); // Clear refs if no data
       setAllArticles([]);
       setUniqueCategoryKeys([]);
       setActiveArticlesForMap([]);
@@ -76,6 +80,9 @@ const MapAppComponent: React.FC<MapAppProps> = ({ initialGeoJsonData }) => {
   }, [initialGeoJsonData]);
 
   const updateActiveArticlesForMapAndSidebar = useCallback(() => {
+    // Clear markerRefs before activeArticlesForMap is recalculated and MapDisplay gets new articles
+    markerRefs.current.clear();
+
     if (!mapInstance && allArticles.length > 0) { 
          setActiveArticlesForMap([]);
          setFilteredArticlesForSidebar([]);
@@ -171,7 +178,34 @@ const MapAppComponent: React.FC<MapAppProps> = ({ initialGeoJsonData }) => {
 
   const handleMapClick = useCallback(() => {
     // Handled within MapDisplay for popup closure.
+    // No longer need to manage hoveredArticleId here
   }, []);
+
+  const registerMarker = useCallback((articleId: string, marker: L.Marker) => {
+    markerRefs.current.set(articleId, marker);
+  }, []);
+
+  const handleArticleSelect = useCallback((articleFromSidebar: { idx: string; lat?: number | null; lon?: number | null; minZoom?: number; }) => {
+    if (mapInstance && articleFromSidebar.lat != null && articleFromSidebar.lon != null) {
+      const targetZoom = articleFromSidebar.minZoom ?? mapInstance.getZoom();
+      mapInstance.flyTo([articleFromSidebar.lat, articleFromSidebar.lon], targetZoom);
+
+      const markerToSelect = markerRefs.current.get(articleFromSidebar.idx);
+      if (markerToSelect) {
+        markerToSelect.openPopup();
+      }
+      // setHoveredArticleId(null); // REMOVED
+    } else {
+      console.warn('Map instance not available or article coordinates missing for handleArticleSelect.');
+    }
+  }, [mapInstance]);
+
+  // const handleArticleHover = useCallback((articleId: string | null) => { ... }); // ENTIRE FUNCTION REMOVED
+
+  const processedArticlesForSidebar = filteredArticlesForSidebar.map(article => ({
+    ...article,
+    idx: article.idx.toString(),
+  }));
 
   return (
     <div className="h-full w-full flex flex-col antialiased bg-gray-100 relative">
@@ -179,7 +213,8 @@ const MapAppComponent: React.FC<MapAppProps> = ({ initialGeoJsonData }) => {
         articlesForMap={activeArticlesForMap}
         setMapInstance={setMapInstance}
         mapInstance={mapInstance}
-        onMapClick={handleMapClick} 
+        onMapClick={handleMapClick}
+        registerMarker={registerMarker}
       />
       <FilterPanel
         categories={uniqueCategoryKeys}
@@ -192,7 +227,9 @@ const MapAppComponent: React.FC<MapAppProps> = ({ initialGeoJsonData }) => {
         initialDateValue={activeFilters.dateIdx}
       />
       <ArticleSidebar
-        articles={filteredArticlesForSidebar}
+        articles={processedArticlesForSidebar}
+        onArticleSelect={handleArticleSelect}
+        // onArticleHover={handleArticleHover} // REMOVED
       />
     </div>
   );

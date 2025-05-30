@@ -1,25 +1,68 @@
+import React, { useState, useRef } from 'react';
+import { SidebarArticlePopup } from './SidebarArticlePopup'; // Import the new popup component
 
-import React from 'react';
-import type { MarkerArticle } from './types';
-import { getCategoryDetails } from './constants';
-
-interface ArticleSidebarProps {
-  articles: MarkerArticle[];
+// Updated MarkerArticle interface for ArticleSidebar
+interface MarkerArticle {
+  idx: string;
+  title: string;
+  date?: string;
+  lien: string;
+  cat: string;
+  imp: number;
+  color: string; // Map pin color, not used for sidebar dot directly but part of the incoming data
+  // Add fields that are available from MapApp's MarkerArticle and needed by SidebarArticlePopup
+  description?: string;
+  imageUrl?: string;
 }
 
-export const ArticleSidebar: React.FC<ArticleSidebarProps> = ({ 
-  articles
-}) => {
-  
+interface CategoryUIDetails {
+  label: string;
+  color: string;
+}
+
+const getCategoryUIDetails = (categoryCode: string): CategoryUIDetails => {
+  const upperCategoryCode = categoryCode.toUpperCase();
+  switch (upperCategoryCode) {
+    case 'TECH': return { label: 'Technologie', color: '#6366F1' };
+    case 'FIN': return { label: 'Finance', color: '#22C55E' };
+    case 'ECO': return { label: 'Économie', color: '#F97316' };
+    case 'POL': return { label: 'Politique', color: '#EF4444' };
+    case 'SCI': return { label: 'Science', color: '#0EA5E9' };
+    case 'FLASH': return { label: 'Flash Info', color: '#FF5733' };
+    case 'URGENT': return { label: 'Urgent', color: '#FF0000' };
+    case 'INTERNATIONAL': return { label: 'International', color: '#AF7AC5' };
+    case 'ECONOMIE': return { label: 'Économie', color: '#5DADE2' };
+    case 'TECHNOLOGIE': return { label: 'Technologie', color: '#48C9B0' };
+    case 'ENVIRONNEMENT': return { label: 'Environnement', color: '#58D68D' };
+    case 'CULTURE': return { label: 'Culture', color: '#F4D03F' };
+    case 'AUTRE': return { label: 'Autre', color: '#AAB7B8' };
+    default:
+      return { label: categoryCode || 'Autre', color: '#737373' };
+  }
+};
+
+// Updated ArticleSidebarProps: onArticleHover is removed
+interface ArticleSidebarProps {
+  articles: MarkerArticle[];
+  onArticleSelect: (article: MarkerArticle) => void;
+}
+
+export const ArticleSidebar: React.FC<ArticleSidebarProps> = ({ articles, onArticleSelect }) => {
   const noArticlesMessage = "Aucun article à afficher pour les filtres actuels.";
 
-  if (articles.length === 0) {
+  const [hoveredArticle, setHoveredArticle] = useState<MarkerArticle | null>(null);
+  const [popupStyle, setPopupStyle] = useState<React.CSSProperties>({ visibility: 'hidden', opacity: 0 });
+  const sidebarRef = useRef<HTMLDivElement>(null);
+
+  if (!articles || articles.length === 0) {
     return (
       <div 
         id="articleSidebar"
+        ref={sidebarRef} // Added ref
         className="absolute z-[1500] right-[2%] bottom-[3%] w-[310px] max-w-[88vw] max-h-[36vh] 
-                   bg-white/90 backdrop-blur-md rounded-[1.5rem] shadow-xl
-                   p-4 text-center text-neutral-500 text-sm custom-scrollbar flex flex-col"
+                   bg-white/90 backdrop-blur-md rounded-[1.5rem] shadow-xl border-4 border-purple-600
+                   p-4 text-neutral-500 text-sm custom-scrollbar flex flex-col items-center justify-center
+                   font-inter transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/50"
         aria-live="polite"
       >
         {noArticlesMessage}
@@ -30,49 +73,74 @@ export const ArticleSidebar: React.FC<ArticleSidebarProps> = ({
   return (
     <div 
       id="articleSidebar"
+      ref={sidebarRef} // Added ref
       className="absolute z-[1500] right-[2%] bottom-[3%] w-[310px] max-w-[88vw] max-h-[36vh] 
                  overflow-y-auto bg-white/90 backdrop-blur-md rounded-[1.5rem] 
-                 shadow-xl
-                 text-[0.86rem] p-2 flex flex-col gap-0.5 
-                 transition-shadow duration-300 scrollbar-thin custom-scrollbar"
+                 shadow-xl border-4 border-purple-600
+                 text-[0.86rem] py-2 px-1.5 flex flex-col gap-1
+                 transition-all duration-300 scrollbar-thin custom-scrollbar font-inter
+                 hover:shadow-2xl hover:shadow-purple-500/50"
       aria-label="Liste des articles filtrés"
     >
       {articles.map((article) => {
-        const categoryDetails = getCategoryDetails(article.cat);
+        const categoryCode = typeof article.cat === 'string' ? article.cat : 'AUTRE';
+        const categoryDetails = getCategoryUIDetails(categoryCode);
+
         return (
           <div
-            key={`${article.idx}-${article.title}`} // Ensure key is unique, idx might not be stable if source data changes
+            key={`${article.idx}-${article.title}`}
             data-article-idx={article.idx}
             className={`group rounded-xl transition-all duration-150 
-                       p-[0.4rem_0.7rem] mb-0.5 flex items-start gap-2.5 
-                       hover:bg-neutral-700/95 hover:text-white focus:outline-none focus:ring-2 focus:ring-neutral-500
-                       cursor-default`}
-            title={`Catégorie: ${categoryDetails.label}\nScore d'importance: ${article.imp.toFixed(2)}`}
+                        px-2.5 py-1.5 mb-1 flex items-start gap-2.5
+                        hover:bg-purple-700/90 hover:text-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500
+                        cursor-pointer transform hover:scale-[1.01]`}
+            title={`Catégorie: ${categoryDetails.label}\nDate: ${article.date || 'N/A'}\nImportance: ${article.imp.toFixed(2)}`}
+            onClick={() => onArticleSelect(article)}
+            onMouseEnter={(event) => {
+              setHoveredArticle(article);
+              const sidebarElement = sidebarRef.current;
+              if (sidebarElement) {
+                setPopupStyle({
+                  position: 'absolute',
+                  top: `${event.currentTarget.offsetTop}px`,
+                  right: 'calc(100% + 10px)', // Position to the left of the sidebar
+                  visibility: 'visible',
+                  opacity: 1,
+                  zIndex: 2000, // High z-index
+                });
+              }
+            }}
+            onMouseLeave={() => {
+              setHoveredArticle(null);
+              setPopupStyle({ visibility: 'hidden', opacity: 0, transition: 'visibility 0s linear 300ms, opacity 300ms ease-in-out' });
+            }}
           >
             <span 
-              className="mt-1 w-3.5 h-3.5 rounded-full border-[2.2px] border-neutral-900 
-                         shadow-[0_0.5px_2px_0_rgba(0,0,0,0.09)] bg-clip-padding inline-block shrink-0"
-              style={{ backgroundColor: article.color }}
+              style={{ backgroundColor: categoryDetails.color }}
+              className="mt-1 w-3.5 h-3.5 rounded-full border-[2.2px] border-white shadow-md shrink-0"
               aria-hidden="true"
-            />
-            <div className="flex flex-col flex-1 min-w-0">
-              <span className={`font-medium text-sm text-neutral-800 truncate group-hover:text-white`} title={article.title}>
+            ></span>
+            <div className="flex-grow overflow-hidden">
+              <h3 className="font-semibold text-sm truncate text-neutral-800 group-hover:text-purple-50">
                 {article.title}
-              </span>
-              {article.date && (
-                <span className={`text-xs text-neutral-500 italic truncate group-hover:text-neutral-300`} title={article.date}>
-                  {new Date(article.date).toLocaleDateString('fr-FR', { year: 'numeric', month: 'short', day: 'numeric' })}
-                </span>
-              )}
+              </h3>
+              <p className="text-xs text-neutral-600 group-hover:text-purple-200">
+                {article.date || 'Date N/A'}
+              </p>
             </div>
-            <a href={article.lien} target="_blank" rel="noopener noreferrer" 
-                className={`text-xs font-semibold ml-1 whitespace-nowrap text-sky-600 group-hover:text-sky-300 focus:outline-none focus:ring-1 focus:ring-sky-400 rounded p-0.5`}
-                aria-label={`Lire l'article ${article.title} (Importance ${article.imp.toFixed(2)})`}>
-                ★ {article.imp.toFixed(2)}
-            </a>
           </div>
         );
       })}
+      {hoveredArticle && (
+        <div style={popupStyle} className="transition-opacity duration-200 ease-in-out"> {/* Apply opacity transition to wrapper */}
+          <SidebarArticlePopup article={{
+            title: hoveredArticle.title,
+            description: hoveredArticle.description,
+            imageUrl: hoveredArticle.imageUrl,
+            date: hoveredArticle.date,
+          }} />
+        </div>
+      )}
     </div>
   );
 };
