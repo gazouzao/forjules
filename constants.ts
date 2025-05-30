@@ -27,18 +27,19 @@ export const START_DATE: Date = new Date(); // Represents the current date for f
 export interface CategoryDetail {
   name: string;
   color: string;
+  emoji: string; // Added emoji property
 }
 
-// Details for each category (name for display, color for map pins)
+// Details for each category (name for display, color for map pins, emoji)
 const CATEGORY_DETAILS: Record<string, CategoryDetail> = {
-  'flash': { name: 'Flash Info', color: '#FF5733' },      // Orange
-  'urgent': { name: 'Urgent', color: '#FF0000' },         // Red
-  'international': { name: 'International', color: '#AF7AC5' }, // Purple
-  'economie': { name: 'Économie', color: '#5DADE2' },     // Blue
-  'tech': { name: 'Technologie', color: '#48C9B0' },    // Teal
-  'environnement': { name: 'Environnement', color: '#58D68D' },// Green
-  'culture': { name: 'Culture', color: '#F4D03F' },       // Yellow
-  'autre': { name: 'Autre', color: '#AAB7B8' }          // Grey
+  'flash': { name: 'Flash Info', color: '#FF5733', emoji: '⚡️' },      // Orange
+  'urgent': { name: 'Urgent', color: '#FF0000', emoji: '🔥' },         // Red
+  'international': { name: 'International', color: '#AF7AC5', emoji: '🌍' }, // Purple
+  'economie': { name: 'Économie', color: '#5DADE2', emoji: '📈' },     // Blue
+  'tech': { name: 'Technologie', color: '#48C9B0', emoji: '💡' },    // Teal
+  'environnement': { name: 'Environnement', color: '#58D68D', emoji: '🌳' },// Green
+  'culture': { name: 'Culture', color: '#F4D03F', emoji: '🎨' },       // Yellow
+  'autre': { name: 'Autre', color: '#AAB7B8', emoji: '🔗' }          // Grey
 };
 
 /**
