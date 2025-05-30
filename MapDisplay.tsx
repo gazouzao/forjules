@@ -38,19 +38,19 @@ const lockedPopupOptions: L.PopupOptions = {
   closeOnClick: false, 
   closeButton: true, 
   minWidth: 240,
-  maxWidth: 320,
-  className: 'custom-leaflet-popup locked-popup',
+  maxWidth: 340, // Adjusted for new padding
+  className: 'leaflet-custom-popup-wrapper', // New wrapper class
   offset: [0, POPUP_ANCHOR_OFFSET_Y] 
 };
 
 const hoverPopupOptions: L.PopupOptions = {
-  autoClose: true, // Behavior: still auto-closes on mouseout
-  closeButton: false, // Behavior: no close button for hover
-  closeOnClick: false, // Behavior
-  minWidth: 240, // Style: same as lockedPopupOptions
-  maxWidth: 320, // Style: same as lockedPopupOptions
-  className: 'custom-leaflet-popup locked-popup', // Style: USE SAME CLASS NAME as lockedPopupOptions
-  offset: [0, POPUP_ANCHOR_OFFSET_Y] // Style: same offset as lockedPopupOptions
+  autoClose: true,
+  closeButton: false,
+  closeOnClick: false,
+  minWidth: 240,
+  maxWidth: 340, // Adjusted for new padding
+  className: 'leaflet-custom-popup-wrapper', // New wrapper class
+  offset: [0, POPUP_ANCHOR_OFFSET_Y]
 };
 
 
@@ -77,16 +77,19 @@ export const MapDisplay: React.FC<MapDisplayProps> = ({
 
   // Moved createPopupContent higher to be before createHoverPopupContent for clarity
   const createPopupContent = useCallback((article: MarkerArticle): string => {
-    const summary = article.description || (article.title.length > 100 ? article.title.substring(0, 97) + '...' : article.title);
     const hasImage = article.imageUrl && !article.imageUrl.includes("via.placeholder.com");
+    // Ensure summary is always a string, even if description and title are null/undefined.
+    const articleTitle = article.title || 'Sans titre';
+    const articleDescription = article.description || '';
+    const summary = articleDescription || (articleTitle.length > 100 ? articleTitle.substring(0, 97) + '...' : articleTitle);
+
     return `
-      <div class="p-3 max-w-xs">
-        ${hasImage ? `<img src="${article.imageUrl}" alt="${article.title.substring(0,30)}" class="w-full h-32 object-cover rounded-md mb-2.5 border border-gray-200 shadow-sm" />` : ''}
-        <h3 class="text-base font-semibold mb-1.5 text-gray-800 leading-tight">${article.title}</h3>
-        <p class="text-xs text-gray-600 mb-3 max-h-20 overflow-y-auto custom-scrollbar pr-1">${summary}</p>
+      <div class="p-6 font-inter text-gray-800" style="max-width: 320px;"> {/* max-width applied here to content div if Leaflet's option isn't enough */}
+        ${hasImage ? `<img src="${article.imageUrl}" alt="${articleTitle.substring(0,30)}" class="w-full h-32 object-cover rounded-xl mb-4 shadow-md" onerror="this.style.display='none'; console.error('Image load error: ${article.imageUrl}');" />` : ''}
+        <h3 class="text-xl font-bold mb-2 leading-tight">${articleTitle}</h3>
+        <p class="text-sm text-gray-600 mb-5 max-h-20 overflow-y-auto custom-scrollbar pr-1">${summary}</p>
         <div class="flex justify-between items-center">
-          <a href="${article.lien}" target="_blank" rel="noopener noreferrer" 
-             class="inline-block px-3 py-1.5 text-xs font-medium text-sky-700 bg-sky-100 hover:bg-sky-200 rounded-md transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-sky-500">
+          <a href="${article.lien}" target="_blank" rel="noopener noreferrer" class="inline-block px-5 py-2.5 text-base font-semibold text-white bg-purple-600 hover:bg-purple-700 rounded-full transition-all duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500">
             Lire l'article
           </a>
           ${article.localisation ? `<span class="text-xs text-gray-500 italic" title="Localisation">${article.localisation.substring(0,30)}${article.localisation.length > 30 ? '...' : ''}</span>` : ''}
