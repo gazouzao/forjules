@@ -1,7 +1,9 @@
-import React, { useState, useRef } from 'react';
-import { SidebarArticlePopup } from './SidebarArticlePopup'; // Import the new popup component
+import React, { useRef } from 'react'; // Removed useState
+// import { SidebarArticlePopup } from './SidebarArticlePopup'; // REMOVED IMPORT
 
 // Updated MarkerArticle interface for ArticleSidebar
+// (description and imageUrl are no longer strictly needed by this component directly if popup is removed)
+// However, keeping them for now as they are part of the incoming articles prop structure.
 interface MarkerArticle {
   idx: string;
   title: string;
@@ -50,8 +52,8 @@ interface ArticleSidebarProps {
 export const ArticleSidebar: React.FC<ArticleSidebarProps> = ({ articles, onArticleSelect }) => {
   const noArticlesMessage = "Aucun article à afficher pour les filtres actuels.";
 
-  const [hoveredArticle, setHoveredArticle] = useState<MarkerArticle | null>(null);
-  const [popupStyle, setPopupStyle] = useState<React.CSSProperties>({ visibility: 'hidden', opacity: 0 });
+  // const [hoveredArticle, setHoveredArticle] = useState<MarkerArticle | null>(null); // REMOVED
+  // const [popupStyle, setPopupStyle] = useState<React.CSSProperties>({ visibility: 'hidden', opacity: 0 }); // REMOVED
   const sidebarRef = useRef<HTMLDivElement>(null);
 
   if (!articles || articles.length === 0) {
@@ -95,35 +97,10 @@ export const ArticleSidebar: React.FC<ArticleSidebarProps> = ({ articles, onArti
                         hover:bg-purple-700/90 hover:text-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500
                         cursor-pointer transform hover:scale-[1.01]`}
             title={`Catégorie: ${categoryDetails.label}\nDate: ${article.date || 'N/A'}\nImportance: ${article.imp.toFixed(2)}`}
-            style={{ pointerEvents: 'auto' }}
+            // style={{ pointerEvents: 'auto' }} // REMOVED - let's see if clicks still work without it. If not, can be re-added.
             onClick={() => onArticleSelect(article)}
-            onMouseEnter={(event) => {
-              setHoveredArticle(article);
-              const listItemElement = event.currentTarget;
-              const sidebarElement = sidebarRef.current;
-              if (sidebarElement && listItemElement) {
-                const sidebarRect = sidebarElement.getBoundingClientRect();
-                const listItemRect = listItemElement.getBoundingClientRect();
-                const popupTop = listItemRect.top - sidebarRect.top;
-                setPopupStyle({
-                  position: 'absolute',
-                  top: `${popupTop}px`,
-                  right: 'calc(100% + 10px)', // Position to the left of the sidebar
-                  visibility: 'visible',
-                  opacity: 1,
-                  zIndex: 2000,
-                  transition: 'opacity 0.2s ease-in-out',
-                });
-              }
-            }}
-            onMouseLeave={() => {
-              setHoveredArticle(null);
-              setPopupStyle({
-                visibility: 'hidden',
-                opacity: 0,
-                transition: 'opacity 0.2s ease-in-out, visibility 0s linear 0.2s'
-              });
-            }}
+            // onMouseEnter prop REMOVED
+            // onMouseLeave prop REMOVED
           >
             <span 
               style={{ backgroundColor: categoryDetails.color }}
@@ -150,16 +127,7 @@ export const ArticleSidebar: React.FC<ArticleSidebarProps> = ({ articles, onArti
           </div>
         );
       })}
-      {hoveredArticle && (
-        <div style={popupStyle} className="transition-opacity duration-200 ease-in-out"> {/* Apply opacity transition to wrapper */}
-          <SidebarArticlePopup article={{
-            title: hoveredArticle.title,
-            description: hoveredArticle.description,
-            imageUrl: hoveredArticle.imageUrl,
-            date: hoveredArticle.date,
-          }} />
-        </div>
-      )}
+      {/* Conditionally rendered SidebarArticlePopup block REMOVED */}
     </div>
   );
 };
