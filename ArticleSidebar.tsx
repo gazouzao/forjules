@@ -98,21 +98,48 @@ export const ArticleSidebar: React.FC<ArticleSidebarProps> = ({ articles, onArti
             onClick={() => onArticleSelect(article)}
             onMouseEnter={(event) => {
               setHoveredArticle(article);
+              setHoveredArticle(article);
+              const listItemElement = event.currentTarget;
               const sidebarElement = sidebarRef.current;
-              if (sidebarElement) {
+              if (sidebarElement && listItemElement) {
+                const sidebarRect = sidebarElement.getBoundingClientRect();
+                const listItemRect = listItemElement.getBoundingClientRect();
+
+                // Calculate position relative to the sidebar's top edge, accounting for scroll
+                const popupTop = listItemRect.top - sidebarRect.top;
+
                 setPopupStyle({
                   position: 'absolute',
-                  top: `${event.currentTarget.offsetTop}px`,
+                  top: `${popupTop}px`,
                   right: 'calc(100% + 10px)', // Position to the left of the sidebar
                   visibility: 'visible',
                   opacity: 1,
                   zIndex: 2000, // High z-index
+                  // Ensure smooth transition for opacity, visibility handled by direct set
+                  transition: 'opacity 0.2s ease-in-out',
                 });
               }
             }}
             onMouseLeave={() => {
               setHoveredArticle(null);
-              setPopupStyle({ visibility: 'hidden', opacity: 0, transition: 'visibility 0s linear 300ms, opacity 300ms ease-in-out' });
+              // Delay hiding to allow fade-out, then set visibility to hidden
+              setPopupStyle(prev => ({ ...prev, opacity: 0, transition: 'opacity 0.2s ease-in-out, visibility 0s linear 0.2s' }));
+              // Set visibility to hidden after transition.
+              // setTimeout(() => {
+              //  if (!hoveredArticle) setPopupStyle(prev => ({...prev, visibility: 'hidden'}));
+              // }, 200);
+              // The above setTimeout logic is tricky with React state.
+              // A simpler approach for onMouseLeave is to just set opacity to 0 and rely on CSS for transition.
+              // The visibility can be controlled by whether hoveredArticle is null or not for rendering the popup.
+              // Let's refine onMouseLeave to:
+              // setPopupStyle(prev => ({ ...prev, opacity: 0 }));
+              // And then the visibility will be handled by the conditional rendering: {hoveredArticle && ...}
+              // However, the current popupStyle state also controls visibility.
+              // Let's stick to a simpler mouseLeave for now, then refine if transition is problematic.
+              // The original onMouseLeave was:
+              // setPopupStyle({ visibility: 'hidden', opacity: 0, transition: 'visibility 0s linear 300ms, opacity 300ms ease-in-out' });
+              // This is fine, it hides after opacity transition. Let's ensure the opacity transition duration matches.
+              setPopupStyle({ visibility: 'hidden', opacity: 0, transition: 'opacity 0.2s ease-in-out, visibility 0s linear 0.2s' });
             }}
           >
             <span 
