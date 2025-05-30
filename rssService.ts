@@ -1,6 +1,6 @@
-
 import { RawArticle, RssSource } from './types';
 import { CORS_PROXY_URL } from './constants';
+import { scrapeArticleContent } from './articleScraper'; // Added import
 
 const parseRSSFeed = (xmlString: string, sourceName: string): RawArticle[] => {
   const parser = new DOMParser();
@@ -86,6 +86,7 @@ const parseRSSFeed = (xmlString: string, sourceName: string): RawArticle[] => {
       description: plainDescription,
       imageUrl,
       source: sourceName,
+      // fullText and scrapedImageUrl will be added after scraping
     });
   }
   return articles;
@@ -93,6 +94,7 @@ const parseRSSFeed = (xmlString: string, sourceName: string): RawArticle[] => {
 
 export const fetchRssFeed = async (rssSource: RssSource): Promise<RawArticle[]> => {
   const encodedUrl = encodeURIComponent(rssSource.url);
+  let xmlString = ""; // Define xmlString here to be accessible in the broader scope if needed for logging
   try {
     const response = await fetch(`${CORS_PROXY_URL}${encodedUrl}`, {
         headers: { 'Accept': 'application/rss+xml, application/atom+xml, application/xml, text/xml' }
@@ -100,16 +102,52 @@ export const fetchRssFeed = async (rssSource: RssSource): Promise<RawArticle[]> 
     if (!response.ok) {
       throw new Error(`Failed to fetch from ${rssSource.name}: ${response.statusText} (Status ${response.status}). URL: ${rssSource.url}`);
     }
-    const xmlString = await response.text();
+    xmlString = await response.text(); // Assign value to xmlString
     if (!xmlString.trim()) {
         throw new Error(`Empty response from ${rssSource.name}. URL: ${rssSource.url}`);
     }
-    return parseRSSFeed(xmlString, rssSource.name);
+    
+    const parsedArticles = parseRSSFeed(xmlString, rssSource.name);
+    const articlesWithScrapedContent: RawArticle[] = [];
+
+    console.log(`Starting scraping for ${parsedArticles.length} articles from ${rssSource.name}`);
+    for (const article of parsedArticles) {
+      try {
+        if (article.link && article.link.startsWith('http')) { // Only scrape if there's a valid link
+          console.log(`Scraping article: ${article.title} from ${article.link}`);
+          const scrapedData = await scrapeArticleContent(article.link);
+          articlesWithScrapedContent.push({
+            ...article,
+            fullText: scrapedData.textContent || undefined,
+            scrapedImageUrl: scrapedData.mainImageUrl || undefined,
+          });
+        } else {
+          console.warn(`Skipping scraping for article "${article.title}" due to missing or invalid link: ${article.link}`);
+          articlesWithScrapedContent.push({
+            ...article,
+            fullText: undefined,
+            scrapedImageUrl: undefined,
+          });
+        }
+      } catch (scrapeError) {
+        console.error(`Scraping failed for "${article.title}" (${article.link}), pushing article without full content. Error:`, scrapeError);
+        articlesWithScrapedContent.push({
+            ...article, 
+            fullText: undefined, 
+            scrapedImageUrl: undefined,
+        });
+      }
+    }
+    console.log(`Finished scraping for ${rssSource.name}. Processed ${articlesWithScrapedContent.length} articles.`);
+    return articlesWithScrapedContent;
+
   } catch (error) {
-    console.error(`Initial error fetching/parsing feed for ${rssSource.name} (${rssSource.url}):`, error);
+    console.error(`Error in fetchRssFeed for ${rssSource.name} (${rssSource.url}). XML content (first 500 chars, if available): "${xmlString.substring(0,500)}" Error:`, error);
     if (error instanceof Error && error.message.toLowerCase().includes('failed to fetch')) {
         throw new Error(`Network error (Failed to fetch) for ${rssSource.name}. URL: ${rssSource.url}. Proxy or target server might be an issue.`);
     }
+    // If parsing or other errors occur, return empty array or rethrow
+    // For now, rethrowing to be handled by fetchAllRssFeeds individual source error handling
     throw error; 
   }
 };
@@ -125,48 +163,55 @@ export const fetchAllRssFeeds = async (
   const allArticlesCombined: RawArticle[] = [];
   const articleIds = new Set<string>(); 
 
+  console.log(`Starting to fetch all RSS feeds for ${sources.length} sources.`);
   for (const source of sources) {
+    console.log(`Fetching and processing source: ${source.name}`);
     try {
       const articlesFromThisSource = await fetchRssFeed(source);
       const uniqueNewArticles = articlesFromThisSource.filter(article => {
-        if (articleIds.has(article.id)) return false;
-        articleIds.add(article.id);
-        return true;
+        if (article.id) { // Ensure article.id is not undefined or empty
+            if (articleIds.has(article.id)) {
+                console.log(`Duplicate article ID found and skipped: ${article.id} (${article.title})`);
+                return false;
+            }
+            articleIds.add(article.id);
+            return true;
+        }
+        console.warn(`Article with missing ID found from source ${source.name}: ${article.title}`);
+        return false; // Skip articles with no ID
       });
       allArticlesCombined.push(...uniqueNewArticles);
+      console.log(`Successfully processed source: ${source.name}. Added ${uniqueNewArticles.length} new articles.`);
       onSourceProcessed?.(source.name, uniqueNewArticles);
     } catch (error) {
       let errorMessage = error instanceof Error ? error.message : String(error);
-      if (errorMessage.toLowerCase().includes('failed to fetch')) {
-        let proxyHostname = "the configured CORS proxy";
-        try {
-          if (CORS_PROXY_URL) {
-            const urlObj = new URL(CORS_PROXY_URL);
-            proxyHostname = urlObj.hostname;
-          }
-        } catch (e) { /* Keep default proxyHostname */ }
-        
-        errorMessage = `Network error: Failed to fetch from ${source.name}. The RSS server might be down, blocking requests, or the CORS proxy (${proxyHostname}) might be unable to reach it. URL: ${source.url}`;
-      }
+      // Custom error message for failed fetch is already quite good in fetchRssFeed
+      // We can enhance it or keep it as is.
+      console.error(`Failed to process source ${source.name}: ${errorMessage}`);
       onSourceProcessed?.(source.name, [], errorMessage); 
     }
   }
   
+  console.log(`Finished fetching all RSS feeds. Total unique articles: ${allArticlesCombined.length}`);
   allArticlesCombined.sort((a, b) => {
     try {
         const parseDate = (dateStr?: string): number => {
             if (!dateStr) return 0;
+            // Check if date is in DD/MM/YYYY format
             if (/^\d{2}\/\d{2}\/\d{4}$/.test(dateStr)) {
                 const parts = dateStr.split('/');
+                // Month is 0-indexed in JavaScript Date
                 return new Date(parseInt(parts[2], 10), parseInt(parts[1], 10) - 1, parseInt(parts[0], 10)).getTime();
             }
+            // Try parsing other common date formats
             const d = new Date(dateStr).getTime();
-            return isNaN(d) ? 0 : d;
+            return isNaN(d) ? 0 : d; // Return 0 for invalid dates to sort them last or first
         };
         const dateA = parseDate(a.pubDate);
         const dateB = parseDate(b.pubDate);
-        return dateB - dateA;
+        return dateB - dateA; // Sorts in descending order (newest first)
     } catch (e) {
+        console.warn("Date parsing error during sort:", e);
         return 0; 
     }
   });

@@ -4,9 +4,11 @@ export interface RawArticle {
   title: string;
   link: string;
   pubDate?: string; 
-  description?: string; 
+  description?: string; // This is the short description from RSS
   source: string; 
-  imageUrl?: string; 
+  imageUrl?: string; // This is the image URL from RSS (potentially picsum)
+  fullText?: string; // Full scraped text content of the article
+  scrapedImageUrl?: string; // Image URL found by the scraper
 }
 
 // This interface reflects the properties directly asked from the AI (OpenAI) via the French prompt.

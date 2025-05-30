@@ -89,7 +89,7 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({ categories: propCatego
       {showLeftArrow && (
         <button
           onClick={() => scroll('left')}
-          className="absolute -left-1 md:-left-2 top-1/2 -translate-y-1/2 z-20 p-1 bg-white/70 backdrop-blur-sm rounded-full shadow-md hover:bg-white transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="absolute -left-1 md:-left-2 top-1/2 -translate-y-1/2 z-20 p-1 bg-white/70 backdrop-blur-sm rounded-full shadow-md hover:bg-white transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           aria-label="Faire défiler vers la gauche"
         >
           <ChevronLeftIcon />
@@ -141,7 +141,7 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({ categories: propCatego
       {showRightArrow && (
         <button
           onClick={() => scroll('right')}
-          className="absolute -right-1 md:-right-2 top-1/2 -translate-y-1/2 z-20 p-1 bg-white/70 backdrop-blur-sm rounded-full shadow-md hover:bg-white transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="absolute -right-1 md:-right-2 top-1/2 -translate-y-1/2 z-20 p-1 bg-white/70 backdrop-blur-sm rounded-full shadow-md hover:bg-white transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           aria-label="Faire défiler vers la droite"
         >
           <ChevronRightIcon />

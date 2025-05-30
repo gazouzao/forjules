@@ -34,8 +34,10 @@ export const analyzeArticleContent = async (article: RawArticle): Promise<Partia
 
   const systemPrompt = `Vous êtes un analyste d'actualités expert. Votre tâche est d'analyser l'article de presse fourni et de renvoyer un objet JSON unique et valide avec des clés spécifiques en français, conformément aux instructions de l'utilisateur. N'incluez aucun texte explicatif avant ou après l'objet JSON. Assurez-vous que la sortie est uniquement l'objet JSON.`;
 
+  const contentForAnalysis = (article.fullText && article.fullText.length > 100) ? article.fullText : (article.description || 'Aucune description.');
+
   const userPrompt = `
-À partir des données d’article fournies (titre: "${article.title}", description: "${article.description || 'Aucune description.'}", lien: "${article.link}", datePub: "${article.pubDate || 'N/A'}"), produis un objet JSON unique et valide avec TOUS les noms de propriétés en français, comme suit :
+À partir des données d’article fournies (titre: "${article.title}", contenuPourAnalyse: "${contentForAnalysis}", lien: "${article.link}", datePub: "${article.pubDate || 'N/A'}", imageUrlOriginale: "${article.imageUrl || ''}", imageUrlScrapee: "${article.scrapedImageUrl || ''}"), produis un objet JSON unique et valide avec TOUS les noms de propriétés en français, comme suit :
 
 {
   "titre": "Le titre original de l'article",
@@ -44,19 +46,23 @@ export const analyzeArticleContent = async (article: RawArticle): Promise<Partia
   "lien": "Le lien original de l'article",
   "localisation": "...", // Nom de la localisation géographique principale la plus pertinente identifiée dans l'article (ex: "Paris, France", "Montagne Sainte-Victoire", "Silicon Valley"). Si aucune localisation spécifique n'est mentionnée ou ne peut être déduite, mettre "N/A".
   "date": "...", // Date de publication originale (format YYYY-MM-DD si possible, sinon la date fournie).
-  "description": "...", // Description courte et pertinente (max 150 caractères), basée sur le contenu fourni.
-  "imageUrl": "...", // URL de l'image originale de l'article, si disponible dans les données d'entrée ou inférable. Sinon, chaîne vide "".
+  "description": "...", // Description courte et pertinente (max 150 caractères), basée sur le contenuPourAnalyse fourni.
+  "imageUrl": "...", // URL de l'image principale et la plus pertinente de l'article. Ne pas utiliser d'images placeholder (ex: picsum.photos).
   "latitude": ..., // Latitude (décimale) de la localisation principale. Analyser attentivement le titre et la description de l'article pour identifier cette localisation. Retourner une valeur numérique précise. Si aucune coordonnée ne peut être déterminée avec une confiance raisonnable malgré l'analyse du contexte, retourner null.
   "longitude": ... // Longitude (décimale) de la localisation principale. Analyser attentivement le titre et la description de l'article pour identifier cette localisation. Retourner une valeur numérique précise. Si aucune coordonnée ne peut être déterminée avec une confiance raisonnable malgré l'analyse du contexte, retourner null.
 }
 
 Contraintes impératives :
 1.  Respect strict du format JSON et des noms de champs en français.
-2.  Ne rien inventer ni modifier du contenu textuel original (titre, lien, description basée sur l'original).
+2.  Ne rien inventer ni modifier du contenu textuel original (titre, lien). La description doit être basée sur le contenuPourAnalyse.
 3.  "categorie" : Choisir parmi la liste fournie.
 4.  "importance" : Calculer selon les critères.
 5.  Coordonnées ("latitude", "longitude") : DOIVENT être les coordonnées les plus précises possible de la localisation identifiée dans l'article. Privilégier une ville, un lieu spécifique, ou au minimum une région identifiable. Éviter l'extrapolation excessive mais utiliser le contexte pour inférer la localisation la plus probable si elle n'est pas explicitement nommée mais clairement sous-entendue. Retourner null SEULEMENT si le contexte ne permet aucune identification géographique pertinente.
-6.  "imageUrl": Utiliser article.imageUrl si fourni, sinon laisser chaîne vide.
+6.  "imageUrl":
+    a.  Si \`article.scrapedImageUrl\` (l'URL d'image scrapée directement depuis la page de l'article) est fourni, valide et semble être l'image principale et la plus pertinente pour l'article, utilise cet \`article.scrapedImageUrl\`.
+    b.  Sinon, si \`article.imageUrl\` (l'URL d'image fournie dans les données RSS d'entrée, aussi accessible via \`imageUrlOriginale\`) est présent ET qu'il ne s'agit PAS d'une URL de placeholder (par exemple, ne provenant PAS de "picsum.photos"), ET qu'il semble être une image principale pertinente pour l'article, alors utilise cet \`article.imageUrl\`.
+    c.  Sinon (si aucune URL d'image prioritaire n'est disponible ou pertinente), et si le \`contenuPourAnalyse\` fournit des indices clairs permettant d'inférer l'URL d'une image principale directement et spécifiquement liée au sujet de l'article, utilise cette URL inférée.
+    d.  Si aucune image pertinente et spécifique ne peut être déterminée de manière fiable selon (a), (b) ou (c), retourne une chaîne vide "". Ne retourne JAMAIS d'URL de placeholder générique ou d'image non spécifique.
 7.  RÉSULTAT : Uniquement l'objet JSON. Aucun texte ou commentaire en dehors.
 `;
 
@@ -93,8 +99,10 @@ Contraintes impératives :
         (typeof parsedData.latitude === 'number' || parsedData.latitude === null) &&
         (typeof parsedData.longitude === 'number' || parsedData.longitude === null)
     ) {
-        // Ensure imageUrl has a default value if undefined from AI
-        parsedData.imageUrl = parsedData.imageUrl || article.imageUrl || ""; 
+        // Fallback logic for imageUrl, prioritizing AI's output, then scraped, then RSS (non-picsum)
+        const rssImageUrl = (article.imageUrl && !article.imageUrl.includes('picsum.photos')) ? article.imageUrl : "";
+        parsedData.imageUrl = parsedData.imageUrl || article.scrapedImageUrl || rssImageUrl || "";
+        
         // Normalize latitude and longitude to be number or null
         parsedData.latitude = typeof parsedData.latitude === 'number' ? parsedData.latitude : null;
         parsedData.longitude = typeof parsedData.longitude === 'number' ? parsedData.longitude : null;
