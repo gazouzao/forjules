@@ -85,20 +85,27 @@ export const MapDisplay: React.FC<MapDisplayProps> = ({
     // Shorter summary for smaller fonts, and ensure it's not empty if title is short.
     const summary = articleDescription || (articleTitle.length > 80 ? articleTitle.substring(0, 77) + '...' : articleTitle) || articleTitle;
 
+    // Construct HTML string carefully, ensuring no JS comments are inside the backticks.
+    let html = `<div class="p-4 font-inter text-gray-700">`;
 
-    return `
-      <div class="p-4 font-inter text-gray-700"> {/* Reduced padding, adjusted default text color */}
-        ${hasImage ? `<img src="${article.imageUrl}" alt="${articleTitle.substring(0,30)}" class="w-full h-28 object-cover rounded-lg mb-3 shadow-sm" onerror="this.src='https://placehold.co/400x200/CCCCCC/333333?text=Image+Error';" />` : ''} {/* h-28, rounded-lg, mb-3 */}
-        <h3 class="text-md font-semibold mb-1 leading-tight text-gray-800">${articleTitle}</h3> {/* text-md, font-semibold, mb-1 */}
-        <p class="text-xs text-gray-600 mb-3 max-h-16 overflow-y-auto custom-scrollbar pr-1">${summary}</p> {/* text-xs, max-h-16, mb-3 */}
-        <div class="flex justify-between items-center">
-          <a href="${article.lien}" target="_blank" rel="noopener noreferrer" class="inline-block px-4 py-2 text-xs font-medium text-white bg-purple-500 hover:bg-purple-600 rounded-full transition-all duration-200 shadow-xs focus:outline-none focus:ring-2 focus:ring-purple-400"> {/* text-xs, px-4 py-2, adjusted colors/shadow */}
-            Lire l'article
-          </a>
-          ${article.localisation ? `<span class="text-xs text-gray-500 italic">${article.localisation.substring(0,25)}${article.localisation.length > 25 ? '...' : ''}</span>` : ''} {/* text-xs, shorter substring */}
-        </div>
-      </div>
-    `;
+    if (hasImage) {
+      html += `<img src="${article.imageUrl}" alt="${articleTitle.substring(0,30)}" class="w-full h-28 object-cover rounded-lg mb-3 shadow-sm" onerror="this.src='https://placehold.co/400x200/CCCCCC/333333?text=Image+Error';" />`;
+    }
+
+    html += `<h3 class="text-md font-semibold mb-1 leading-tight text-gray-800">${articleTitle}</h3>`;
+    html += `<p class="text-xs text-gray-600 mb-3 max-h-16 overflow-y-auto custom-scrollbar pr-1">${summary}</p>`;
+    html += `<div class="flex justify-between items-center">`;
+    html += `<a href="${article.lien}" target="_blank" rel="noopener noreferrer" class="inline-block px-4 py-2 text-xs font-medium text-white bg-purple-500 hover:bg-purple-600 rounded-full transition-all duration-200 shadow-xs focus:outline-none focus:ring-2 focus:ring-purple-400">Lire l'article</a>`;
+
+    if (article.localisation) {
+      const locText = article.localisation.length > 25 ? article.localisation.substring(0,25) + '...' : article.localisation;
+      html += `<span class="text-xs text-gray-500 italic">${locText}</span>`;
+    }
+
+    html += `</div>`; // Close flex container
+    html += `</div>`; // Close main content div
+
+    return html;
   }, []);
   
   const openLockedPopup = useCallback((article: MarkerArticle, targetLatLng: L.LatLng) => {
