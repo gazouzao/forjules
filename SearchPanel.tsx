@@ -71,8 +71,8 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({ onSearch, onDateChange
   return (
     <div
       ref={panelRef}
-      className={`absolute z-[1001] top-[2.5%] right-[3vw] 
-                  flex flex-row items-center overflow-visible transition-all duration-300 ease-[cubic-bezier(.43,1.2,.46,.97)]
+      className={`absolute z-[1001] bottom-[2.5%] left-1/2 -translate-x-1/2 
+                  flex flex-row items-end overflow-visible transition-all duration-300 ease-[cubic-bezier(.43,1.2,.46,.97)]
                   ${isOpen ? 'w-[290px] min-w-[290px] h-auto bg-white/90 backdrop-blur-md rounded-[1.3rem] shadow-xl p-2.5' 
                            : 'w-[52px] min-w-[52px] h-[52px] bg-white/80 backdrop-blur-sm rounded-full shadow-lg p-1.5'}`}
       role="search"
