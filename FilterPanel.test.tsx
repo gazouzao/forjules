@@ -215,4 +215,81 @@ describe('FilterPanel Component', () => {
     expect(techButton.className).toMatch(/focus:ring-offset-2/);
   });
 });
-[end of FilterPanel.test.tsx]
+
+describe('Animated Slider Functionality', () => {
+  const SLIDER_PADDING = 6; // As defined in FilterPanel.tsx
+
+  // Helper to mock button dimensions
+  const mockButtonDimensions = (buttonElement: HTMLElement, { offsetLeft, offsetWidth }: { offsetLeft: number, offsetWidth: number }) => {
+    Object.defineProperty(buttonElement, 'offsetLeft', { configurable: true, value: offsetLeft });
+    Object.defineProperty(buttonElement, 'offsetWidth', { configurable: true, value: offsetWidth });
+  };
+
+  test('slider div is present', () => {
+    renderPanel();
+    // The slider is identified by aria-hidden and its distinct transition classes.
+    // A more robust way would be a data-testid if many such elements exist.
+    const slider = screen.getByRole('tablist').querySelector('div[aria-hidden="true"].transition-\\[left\\,width\\,background-color\\]');
+    expect(slider).toBeInTheDocument();
+  });
+
+  test('slider is positioned correctly under the initially active "All" button', async () => {
+    const { container } = renderPanel('all');
+    
+    const allButton = screen.getByRole('tab', { name: mockCategoryDetails.all.name });
+    mockButtonDimensions(allButton, { offsetLeft: 10, offsetWidth: 100 });
+
+    // Force useEffect to run by re-rendering or a more targeted update if possible
+    // In this case, the component updates slider on activeCategory change or allCategories change.
+    // Let's trigger a re-render to simulate the effect update cycle.
+    // No, the initial render itself should trigger the useEffect.
+    // We use `waitFor` to ensure styles are applied after effects.
+
+    const slider = container.querySelector('div[aria-hidden="true"].transition-\\[left\\,width\\,background-color\\]') as HTMLElement;
+
+    await waitFor(() => {
+      expect(slider.style.left).toBe(`${10 + SLIDER_PADDING / 2}px`); // 13px
+      expect(slider.style.width).toBe(`${100 - SLIDER_PADDING}px`); // 94px
+      expect(slider.style.backgroundColor).toBe(mockCategoryDetails.all.color);
+    });
+  });
+
+  test('slider updates position and color when activeCategory changes', async () => {
+    const { rerender, container } = renderPanel('all');
+    
+    const allButton = screen.getByRole('tab', { name: mockCategoryDetails.all.name });
+    mockButtonDimensions(allButton, { offsetLeft: 10, offsetWidth: 100 });
+    
+    const techButton = screen.getByRole('tab', { name: mockCategoryDetails.tech.name });
+    mockButtonDimensions(techButton, { offsetLeft: 120, offsetWidth: 110 });
+
+    // Initial position for "all"
+    const slider = container.querySelector('div[aria-hidden="true"].transition-\\[left\\,width\\,background-color\\]') as HTMLElement;
+    await waitFor(() => {
+      expect(slider.style.left).toBe(`${10 + SLIDER_PADDING / 2}px`);
+      expect(slider.style.width).toBe(`${100 - SLIDER_PADDING}px`);
+      expect(slider.style.backgroundColor).toBe(mockCategoryDetails.all.color);
+    });
+
+    // Change active category to "tech"
+    rerender(
+      <FilterPanel
+        categories={mockCategoryOrder}
+        activeCategory="tech"
+        onSelectCategory={mockOnSelectCategory}
+      />
+    );
+    
+    // Mock dimensions for the new active button ("tech") again after re-render if refs might have changed
+    // or ensure the mock persists. Here, re-querying and re-mocking is safer.
+    const updatedTechButton = screen.getByRole('tab', { name: mockCategoryDetails.tech.name });
+    mockButtonDimensions(updatedTechButton, { offsetLeft: 120, offsetWidth: 110 });
+
+
+    await waitFor(() => {
+      expect(slider.style.left).toBe(`${120 + SLIDER_PADDING / 2}px`); // 123px
+      expect(slider.style.width).toBe(`${110 - SLIDER_PADDING}px`); // 104px
+      expect(slider.style.backgroundColor).toBe(mockCategoryDetails.tech.color);
+    });
+  });
+});
