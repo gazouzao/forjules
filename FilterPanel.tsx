@@ -153,5 +153,3 @@ export const FilterPanel: React.FC<FilterPanelProps> = ({ categories: propCatego
   scrollbar-width: none;
 }
 */
-
-[end of FilterPanel.tsx]
