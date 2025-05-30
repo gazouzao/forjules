@@ -23,20 +23,27 @@
   padding: 0 !important; /* Remove default Leaflet padding, content div will have its own */
   font-family: 'Inter', sans-serif; /* Ensure Inter font is applied */
   /* animation: popup-fade-in 0.3s ease-out forwards; /* May conflict with Leaflet's own open animation */
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background 0.2s ease-in-out !important;
+  background: rgba(255, 255, 255, 0.25) !important; /* Slightly adjust alpha */
+  backdrop-filter: blur(8px) !important; /* Slightly adjust blur */
+  -webkit-backdrop-filter: blur(8px) !important;
+  border-radius: 1rem !important; /* Adjust border-radius */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important; /* Adjust shadow */
+  border: 1px solid rgba(255, 255, 255, 0.2) !important; /* Adjust border */
+  padding: 0 !important;
+  font-family: 'Inter', sans-serif;
+  /* transition: background 0.2s ease-in-out !important; /* Keep only background transition if hover is simplified */
+  /* Commenting out transition for now to see if it helps with stability */
 }
 
-.leaflet-custom-popup-wrapper .leaflet-popup-content-wrapper:hover {
+/* Temporarily comment out hover effects to diagnose instability */
+/* .leaflet-popup-content-wrapper.glassmorphism-popup:hover {
   transform: translateY(-5px) scale(1.01);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15) !important;
   background: rgba(255, 255, 255, 0.3) !important;
-}
+} */
 
 /* Hide default Leaflet tip if it doesn't fit the glassmorphism style */
-.leaflet-custom-popup-wrapper .leaflet-popup-tip-container {
-    display: none !important; /* Hide the entire tip container */
-}
-/* Legacy selector for tip just in case */
+.leaflet-custom-popup-wrapper .leaflet-popup-tip-container,
 .leaflet-custom-popup-wrapper .leaflet-popup-tip {
     display: none !important;
 }
