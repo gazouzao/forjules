@@ -84,29 +84,29 @@ export const MapDisplay: React.FC<MapDisplayProps> = ({
     // Ensure summary is always a string, even if description and title are null/undefined.
     const articleTitle = article.title || 'Sans titre';
     const articleDescription = article.description || '';
-    // Adjusted summary length to match smaller font style if needed, from previous iteration:
-    const summary = articleDescription || (articleTitle.length > 80 ? articleTitle.substring(0, 77) + '...' : articleTitle) || articleTitle;
+    // Summary logic from user's original PopupContentRenderer design (e.g., length 100, substring 97)
+    const summary = articleDescription || (articleTitle.length > 100 ? articleTitle.substring(0, 97) + '...' : articleTitle);
 
-    // HTML structure with p-4 padding and adjusted font sizes
-    let html = `<div class="p-4 font-inter text-gray-700">`;
+    // HTML structure with p-4 padding but font sizes from original PopupContentRenderer design
+    let html = `<div class="p-4 font-inter text-gray-800">`;
 
     if (hasImage) {
-      // Image height h-28, rounded-lg, mb-3 (from previous smaller font adjustments)
-      html += `<img src="${article.imageUrl}" alt="${articleTitle.substring(0,30)}" class="w-full h-28 object-cover rounded-lg mb-3 shadow-sm" onerror="this.src='https://placehold.co/400x200/CCCCCC/333333?text=Image+Error';" />`;
+      // Image: h-32, rounded-xl, mb-4 (from original PopupContentRenderer)
+      html += `<img src="${article.imageUrl}" alt="${articleTitle.substring(0,30)}" class="w-full h-32 object-cover rounded-xl mb-4 shadow-md" onerror="this.src='https://placehold.co/400x200/CCCCCC/333333?text=Image+Error';" />`;
     }
 
-    // Title: text-md, font-semibold, mb-1
-    html += `<h3 class="text-md font-semibold mb-1 leading-tight text-gray-800">${articleTitle}</h3>`;
-    // Summary: text-xs, max-h-20 (as per current request), mb-3
-    html += `<p class="text-xs text-gray-600 mb-3 max-h-20 overflow-y-auto custom-scrollbar pr-1">${summary}</p>`;
+    // Title: text-xl, font-bold, mb-2 (from original PopupContentRenderer)
+    html += `<h3 class="text-xl font-bold mb-2 leading-tight text-gray-800">${articleTitle}</h3>`;
+    // Summary: text-sm, max-h-20 (max-h-20 retained as per current request), mb-5 (from original PopupContentRenderer)
+    html += `<p class="text-sm text-gray-600 mb-5 max-h-20 overflow-y-auto custom-scrollbar pr-1">${summary}</p>`;
 
     html += `<div class="flex justify-between items-center">`;
-    // Button: text-xs, px-4 py-2
-    html += `<a href="${article.lien}" target="_blank" rel="noopener noreferrer" class="inline-block px-4 py-2 text-xs font-medium text-white bg-purple-500 hover:bg-purple-600 rounded-full transition-all duration-200 shadow-xs focus:outline-none focus:ring-2 focus:ring-purple-400">Lire l'article</a>`;
+    // Button: text-base, font-semibold, px-5 py-2.5, bg-purple-600 hover:bg-purple-700 (from original PopupContentRenderer)
+    html += `<a href="${article.lien}" target="_blank" rel="noopener noreferrer" class="inline-block px-5 py-2.5 text-base font-semibold text-white bg-purple-600 hover:bg-purple-700 rounded-full transition-all duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500">Lire l'article</a>`;
 
     if (article.localisation) {
-      // Localisation: text-xs, substring(0,25)
-      const locText = article.localisation.length > 25 ? article.localisation.substring(0,25) + '...' : article.localisation;
+      // Localisation: text-xs, substring(0,30) (consistent with original PopupContentRenderer)
+      const locText = article.localisation.length > 30 ? article.localisation.substring(0,30) + '...' : article.localisation;
       html += `<span class="text-xs text-gray-500 italic" title="Localisation">${locText}</span>`;
     }
 
