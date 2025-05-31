@@ -36,22 +36,24 @@ const POPUP_ANCHOR_OFFSET_Y = -(UBER_PIN_TOTAL_VISUAL_HEIGHT - (UBER_PIN_BASE_HE
 const lockedPopupOptions: L.PopupOptions = {
   autoClose: false,
   closeOnClick: false,
-  closeButton: true, // Leaflet renders its own button, we style it
+  closeButton: true,
   minWidth: 240,
-  maxWidth: 300, // Changed from 320
+  maxWidth: 360, // Changed to 360
   className: 'leaflet-custom-popup-wrapper',
-  offset: [0, POPUP_ANCHOR_OFFSET_Y] // Original offset for locked popups
+  offset: [0, POPUP_ANCHOR_OFFSET_Y],
+  autoPan: true, // Ensure autoPan is true
+  keepInView: true // Ensure keepInView is true
 };
 
 const hoverPopupOptions: L.PopupOptions = {
   autoClose: true,
   closeButton: false,
   closeOnClick: false,
-  autoPan: false,
+  autoPan: false, // Keep autoPan false for hover
   minWidth: 240,
-  maxWidth: 300, // Changed from 320
+  maxWidth: 360, // Changed to 360
   className: 'leaflet-custom-popup-wrapper',
-  offset: [0, POPUP_ANCHOR_OFFSET_Y - 10] // Retain adjusted offset for hover
+  offset: [0, POPUP_ANCHOR_OFFSET_Y - 10]
 };
 
 
@@ -82,34 +84,34 @@ export const MapDisplay: React.FC<MapDisplayProps> = ({
     // Ensure summary is always a string, even if description and title are null/undefined.
     const articleTitle = article.title || 'Sans titre';
     const articleDescription = article.description || '';
-    // Using the summary logic from the user's PopupContentRenderer (via subtask description)
-    const summary = articleDescription || (articleTitle.length > 100 ? articleTitle.substring(0, 97) + '...' : articleTitle);
+    // Adjusted summary length to match smaller font style if needed, from previous iteration:
+    const summary = articleDescription || (articleTitle.length > 80 ? articleTitle.substring(0, 77) + '...' : articleTitle) || articleTitle;
 
-    // This is the HTML for the *content* of the popup
-    let html = `<div class="p-4 font-inter text-gray-800">`; // Changed from p-6 to p-4
+    // HTML structure with p-4 padding and adjusted font sizes
+    let html = `<div class="p-4 font-inter text-gray-700">`;
 
     if (hasImage) {
-      // Using class="w-full h-32 object-cover rounded-xl mb-4 shadow-md" - keeping image style for now
-      html += `<img src="${article.imageUrl}" alt="${articleTitle.substring(0,30)}" class="w-full h-32 object-cover rounded-xl mb-4 shadow-md" onerror="this.src='https://placehold.co/400x200/CCCCCC/333333?text=Image+Error';" />`;
+      // Image height h-28, rounded-lg, mb-3 (from previous smaller font adjustments)
+      html += `<img src="${article.imageUrl}" alt="${articleTitle.substring(0,30)}" class="w-full h-28 object-cover rounded-lg mb-3 shadow-sm" onerror="this.src='https://placehold.co/400x200/CCCCCC/333333?text=Image+Error';" />`;
     }
 
-    // Using class="text-xl font-bold mb-2 leading-tight"
-    html += `<h3 class="text-xl font-bold mb-2 leading-tight text-gray-800">${articleTitle}</h3>`;
-    // Using class="text-sm text-gray-600 mb-5 max-h-20 overflow-y-auto custom-scrollbar pr-1"
-    html += `<p class="text-sm text-gray-600 mb-5 max-h-20 overflow-y-auto custom-scrollbar pr-1">${summary}</p>`;
+    // Title: text-md, font-semibold, mb-1
+    html += `<h3 class="text-md font-semibold mb-1 leading-tight text-gray-800">${articleTitle}</h3>`;
+    // Summary: text-xs, max-h-20 (as per current request), mb-3
+    html += `<p class="text-xs text-gray-600 mb-3 max-h-20 overflow-y-auto custom-scrollbar pr-1">${summary}</p>`;
 
     html += `<div class="flex justify-between items-center">`;
-    // Using class="inline-block px-5 py-2.5 text-base font-semibold text-white bg-purple-600 hover:bg-purple-700 rounded-full transition-all duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
-    html += `<a href="${article.lien}" target="_blank" rel="noopener noreferrer" class="inline-block px-5 py-2.5 text-base font-semibold text-white bg-purple-600 hover:bg-purple-700 rounded-full transition-all duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500">Lire l'article</a>`;
+    // Button: text-xs, px-4 py-2
+    html += `<a href="${article.lien}" target="_blank" rel="noopener noreferrer" class="inline-block px-4 py-2 text-xs font-medium text-white bg-purple-500 hover:bg-purple-600 rounded-full transition-all duration-200 shadow-xs focus:outline-none focus:ring-2 focus:ring-purple-400">Lire l'article</a>`;
 
     if (article.localisation) {
-      // Using class="text-xs text-gray-500 italic" and substring(0,30)
-      const locText = article.localisation.length > 30 ? article.localisation.substring(0,30) + '...' : article.localisation;
+      // Localisation: text-xs, substring(0,25)
+      const locText = article.localisation.length > 25 ? article.localisation.substring(0,25) + '...' : article.localisation;
       html += `<span class="text-xs text-gray-500 italic" title="Localisation">${locText}</span>`;
     }
 
     html += `</div>`; // Close flex container
-    html += `</div>`; // Close main p-6 content div
+    html += `</div>`; // Close main p-4 content div
 
     return html;
   }, []);
