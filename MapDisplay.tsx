@@ -38,7 +38,7 @@ const lockedPopupOptions: L.PopupOptions = {
   closeOnClick: false,
   closeButton: true, // Leaflet renders its own button, we style it
   minWidth: 240,
-  maxWidth: 320, // Max width for the styled content wrapper
+  maxWidth: 300, // Changed from 320
   className: 'leaflet-custom-popup-wrapper',
   offset: [0, POPUP_ANCHOR_OFFSET_Y] // Original offset for locked popups
 };
@@ -49,7 +49,7 @@ const hoverPopupOptions: L.PopupOptions = {
   closeOnClick: false,
   autoPan: false,
   minWidth: 240,
-  maxWidth: 320, // Match locked popup's content width
+  maxWidth: 300, // Changed from 320
   className: 'leaflet-custom-popup-wrapper',
   offset: [0, POPUP_ANCHOR_OFFSET_Y - 10] // Retain adjusted offset for hover
 };
@@ -85,11 +85,11 @@ export const MapDisplay: React.FC<MapDisplayProps> = ({
     // Using the summary logic from the user's PopupContentRenderer (via subtask description)
     const summary = articleDescription || (articleTitle.length > 100 ? articleTitle.substring(0, 97) + '...' : articleTitle);
 
-    // This is the HTML for the *content* of the popup, matching PopupContentRenderer's inner div
-    let html = `<div class="p-6 font-inter text-gray-800">`; // Matches inner div of PopupContentRenderer
+    // This is the HTML for the *content* of the popup
+    let html = `<div class="p-4 font-inter text-gray-800">`; // Changed from p-6 to p-4
 
     if (hasImage) {
-      // Using class="w-full h-32 object-cover rounded-xl mb-4 shadow-md"
+      // Using class="w-full h-32 object-cover rounded-xl mb-4 shadow-md" - keeping image style for now
       html += `<img src="${article.imageUrl}" alt="${articleTitle.substring(0,30)}" class="w-full h-32 object-cover rounded-xl mb-4 shadow-md" onerror="this.src='https://placehold.co/400x200/CCCCCC/333333?text=Image+Error';" />`;
     }
 
